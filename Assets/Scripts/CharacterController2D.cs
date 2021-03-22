@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class CharacterController2D : MonoBehaviour
 {
     [SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
-    [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
+    //[Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
     [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
     [SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
@@ -27,8 +27,8 @@ public class CharacterController2D : MonoBehaviour
     [System.Serializable]
     public class BoolEvent : UnityEvent<bool> { }
 
-    public BoolEvent OnCrouchEvent;
-    private bool m_wasCrouching = false;
+    //public BoolEvent OnCrouchEvent;
+    //private bool m_wasCrouching = false;
 
     private void Awake()
     {
@@ -37,8 +37,8 @@ public class CharacterController2D : MonoBehaviour
         if (OnLandEvent == null)
             OnLandEvent = new UnityEvent();
 
-        if (OnCrouchEvent == null)
-            OnCrouchEvent = new BoolEvent();
+        //if (OnCrouchEvent == null)
+        //    OnCrouchEvent = new BoolEvent();
     }
 
     private void FixedUpdate()
@@ -82,33 +82,33 @@ public class CharacterController2D : MonoBehaviour
         {
 
             // If crouching
-            if (crouch)
-            {
-                if (!m_wasCrouching)
-                {
-                    m_wasCrouching = true;
-                    OnCrouchEvent.Invoke(true);
-                }
+            //if (crouch)
+            //{
+            //    if (!m_wasCrouching)
+            //    {
+            //        m_wasCrouching = true;
+            //        OnCrouchEvent.Invoke(true);
+            //    }
 
-                // Reduce the speed by the crouchSpeed multiplier
-                move *= m_CrouchSpeed;
+            //    // Reduce the speed by the crouchSpeed multiplier
+            //    move *= m_CrouchSpeed;
 
-                // Disable one of the colliders when crouching
-                if (m_CrouchDisableCollider != null)
-                    m_CrouchDisableCollider.enabled = false;
+            //    // Disable one of the colliders when crouching
+            //    if (m_CrouchDisableCollider != null)
+            //        m_CrouchDisableCollider.enabled = false;
 
-            }
-            else
+            //}
+            //else
             {
                 // Enable the collider when not crouching
                 if (m_CrouchDisableCollider != null)
                     m_CrouchDisableCollider.enabled = true;
 
-                if (m_wasCrouching)
-                {
-                    m_wasCrouching = false;
-                    OnCrouchEvent.Invoke(false);
-                }
+                //if (m_wasCrouching)
+                //{
+                //    m_wasCrouching = false;
+                //    OnCrouchEvent.Invoke(false);
+                //}
             }
 
             // Move the character by finding the target velocity
@@ -139,7 +139,7 @@ public class CharacterController2D : MonoBehaviour
     }
 
 
-    private void Flip()
+    public void Flip()
     {
         // Switch the way the player is labelled as facing.
         m_FacingRight = !m_FacingRight;

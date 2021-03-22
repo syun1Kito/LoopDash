@@ -13,7 +13,21 @@ public class PlayerMovement2D : MonoBehaviour
     [SerializeField]
     float runSpeed = 40f;
 
+    [SerializeField]
+    Sprite[] sprites;
+
+    public enum Form
+    { 
+        box,
+        bomb,
+        none,
+
+    }
+
+    Form currentForm;
+
     TileMapController tileMapController;
+    SpriteRenderer spriteRenderer;
 
     float horizontalMove = 0f;
     bool jump = false;
@@ -21,10 +35,12 @@ public class PlayerMovement2D : MonoBehaviour
 
     Vector3Int currentPos;
 
-    void Awake()
+    void Start()
     {
         tileMapController = GameManager.Instance.tileMapController;
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
+        Init();
     }
 
     // Update is called once per frame
@@ -49,28 +65,39 @@ public class PlayerMovement2D : MonoBehaviour
         jump = false;
     }
 
+    void Init()
+    {
+        ChangeForm(Form.box);
+        
+    }
+
     void Move()
     {
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+
+        //horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+        horizontalMove = (controller.IsFacingRight()?1:-1) * runSpeed;
+
+
 
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;
         }
 
-        if (Input.GetButtonDown("Crouch"))
-        {
-            crouch = true;
-        }
-        else if (Input.GetButtonUp("Crouch"))
-        {
-            crouch = false;
-        }
+        //if (Input.GetButtonDown("Crouch"))
+        //{
+        //    crouch = true;
+        //}
+        //else if (Input.GetButtonUp("Crouch"))
+        //{
+        //    crouch = false;
+        //}
 
     }
 
     void BoundaryCheck()
     {
+
         var front = tileMapController.front;
         var bound = front.cellBounds;
 
@@ -130,20 +157,62 @@ public class PlayerMovement2D : MonoBehaviour
         if (Input.anyKeyDown)
         {
             Tilemap stage = tileMapController.stage;
-            Vector3Int realActionPos = new Vector3Int(currentPos.x + (controller.IsFacingRight() ? 1 : -1), currentPos.y, 0);
-            Vector3Int actionPos = ConvertRealGridPos(realActionPos);
+            
 
 
             if (Input.GetButtonDown("PutTile"))
-            {                
-                SetTile(stage, actionPos, TileMapController.TileType.ground);
-            }
-            else if (Input.GetButtonDown("DeleteTile"))
             {
-                DeleteTile(stage, actionPos);
+                if (currentForm == Form.box)
+                {
+                    Vector3Int realActionPos = new Vector3Int(currentPos.x + (controller.IsFacingRight() ? 1 : -1), currentPos.y, 0);
+                    Vector3Int actionPos = ConvertRealGridPos(realActionPos);
+
+                    SetTile(stage, actionPos, TileMapController.TileType.ground);
+                    ChangeForm(Form.bomb);
+                }
+                else if (currentForm == Form.bomb)
+                {
+                    List<Vector3Int> realActionPos = new List<Vector3Int>();
+                    realActionPos.Add(new Vector3Int(currentPos.x + 1, currentPos.y, 0));
+                    realActionPos.Add(new Vector3Int(currentPos.x - 1, currentPos.y, 0));
+                    realActionPos.Add(new Vector3Int(currentPos.x, currentPos.y + 1, 0));
+                    realActionPos.Add(new Vector3Int(currentPos.x, currentPos.y - 1, 0));
+
+                    foreach (var pos in realActionPos)
+                    {
+                        Vector3Int actionPos = ConvertRealGridPos(pos);
+                        DeleteTile(stage, actionPos);
+                    }
+
+                    ChangeForm(Form.box);
+                }
+
+
+
+                
             }
+            //else if (Input.GetButtonDown("DeleteTile"))
+            //{
+            //    DeleteTile(stage, actionPos);
+            //}
         }
 
 
+    }
+
+    void ChangeForm(Form form)
+    {
+        spriteRenderer.sprite = sprites[(int)form];
+        currentForm = form;
+
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Stage")
+        {
+            controller.Flip();
+        }
     }
 }

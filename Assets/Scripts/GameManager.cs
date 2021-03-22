@@ -14,6 +14,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         base.Awake();
         tileMapController = GetComponent<TileMapController>();
 
+
     }
 
 }
