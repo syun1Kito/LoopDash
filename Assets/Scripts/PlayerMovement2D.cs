@@ -27,6 +27,7 @@ public class PlayerMovement2D : MonoBehaviour
     Form currentForm;
 
     TileMapController tileMapController;
+    StageController stageController;
     SpriteRenderer spriteRenderer;
 
     float horizontalMove = 0f;
@@ -34,10 +35,14 @@ public class PlayerMovement2D : MonoBehaviour
     bool crouch = false;
 
     Vector3Int currentPos;
+    //int currentScreenSpace = 0;
+
 
     void Start()
     {
-        tileMapController = GameManager.Instance.tileMapController;
+        stageController = GameManager.Instance.StageController;
+        tileMapController = stageController.tileMapController;
+
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         Init();
@@ -53,8 +58,8 @@ public class PlayerMovement2D : MonoBehaviour
 
         BoundaryCheck();
 
-        GetGridPos();
-        Debug.Log(currentPos);
+        GetGridPos(transform.position);
+        //Debug.Log(currentPos);
 
     }
 
@@ -68,7 +73,8 @@ public class PlayerMovement2D : MonoBehaviour
     void Init()
     {
         ChangeForm(Form.box);
-        
+        if (!controller.IsFacingRight()) { controller.Flip(); }
+        transform.position = stageController.startPos.position;
     }
 
     void Move()
@@ -97,58 +103,61 @@ public class PlayerMovement2D : MonoBehaviour
 
     void BoundaryCheck()
     {
+        
 
-        var front = tileMapController.front;
-        var bound = front.cellBounds;
+        
 
-        var leftBoundPos = front.GetCellCenterWorld(new Vector3Int(bound.min.x, 0, 0));
-        var rightBoundPos = front.GetCellCenterWorld(new Vector3Int(bound.max.x - 1, 0, 0));
-        var loopedAreaWidth = rightBoundPos.x - leftBoundPos.x;
+        var leftBoundPos = tileMapController.leftBoundPos;
+        //var rightBoundPos = tileMapController.rightBoundPos;
+        var loopedAreaWidth = tileMapController.loopedAreaWidth;
 
         var positionInLoopedArea = transform.position.x - leftBoundPos.x;
-        positionInLoopedArea = (positionInLoopedArea % loopedAreaWidth + loopedAreaWidth) % loopedAreaWidth;
+        
 
-        transform.position = new Vector2(leftBoundPos.x + positionInLoopedArea, transform.position.y);
+        var tmpScreenSpace = Mathf.Floor(positionInLoopedArea / (int)loopedAreaWidth);
+        
+        if (tmpScreenSpace != 0)
+        {
+            positionInLoopedArea = (positionInLoopedArea % loopedAreaWidth + loopedAreaWidth) % loopedAreaWidth;
+            
+            transform.position = new Vector3(leftBoundPos.x + positionInLoopedArea, transform.position.y,0);
+
+            switch (currentForm)
+            {
+                case Form.box:
+                    ChangeForm(Form.bomb);
+                    break;
+                case Form.bomb:
+                    ChangeForm(Form.box);
+                    break;
+                case Form.none:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+        
 
     }
 
-    Vector3Int GetGridPos()
+    Vector3Int GetGridPos(Vector3 pos)
     {
-        var stage = tileMapController.stage;
-
-        Vector3Int realGridPos = stage.WorldToCell(transform.position);
-
-        currentPos = ConvertStageGridPos(realGridPos);
-
+        currentPos = tileMapController.GetGridPos(pos);
         return currentPos;
     }
 
-    Vector3Int ConvertStageGridPos(Vector3Int realGridPos)
+   
+    bool SetTile(Tilemap tilemap, Vector3Int pos, TileMapController.TileType type)
     {
-        var stage = tileMapController.stage;
-        Vector3Int gridPos = new Vector3Int(realGridPos.x - stage.cellBounds.min.x - 1, realGridPos.y - stage.cellBounds.min.y, 0);
-
-        return gridPos;
-    }
-
-    Vector3Int ConvertRealGridPos(Vector3Int stageGridPos)
-    {
-        var stage = tileMapController.stage;
-        Vector3Int realPos = new Vector3Int(stageGridPos.x + stage.cellBounds.min.x + 1, stageGridPos.y + stage.cellBounds.min.y, 0);
-
-        return realPos;
-    }
-
-    void SetTile(Tilemap tilemap, Vector3Int pos, TileMapController.TileType type)
-    {
-        Tile tile = tileMapController.GetTile(type);
-        tilemap.SetTile(pos, tile);
+        return tileMapController.SetTile(tilemap, pos, type);
 
     }
 
-    void DeleteTile(Tilemap tilemap, Vector3Int pos)
+    bool DeleteTile(Tilemap tilemap, Vector3Int pos)
     {
-        tilemap.SetTile(pos, null);
+        return tileMapController.DeleteTile(tilemap,pos);
     }
 
 
@@ -164,27 +173,35 @@ public class PlayerMovement2D : MonoBehaviour
             {
                 if (currentForm == Form.box)
                 {
-                    Vector3Int realActionPos = new Vector3Int(currentPos.x + (controller.IsFacingRight() ? 1 : -1), currentPos.y, 0);
-                    Vector3Int actionPos = ConvertRealGridPos(realActionPos);
+                    Vector3Int actionPos = new Vector3Int(currentPos.x + (controller.IsFacingRight() ? 1 : -1), currentPos.y, 0);
+                    //Vector3Int realActionPos = tileMapController.ConvertRealGridPos(actionPos);
 
-                    SetTile(stage, actionPos, TileMapController.TileType.ground);
-                    ChangeForm(Form.bomb);
+                    if (SetTile(stage, actionPos, TileMapController.TileType.putBlock))
+                    {
+                        ChangeForm(Form.bomb);
+                        if (!controller.IsFacingRight()) { controller.Flip(); }
+                        transform.position = stageController.startPos.position;
+                    }
+                    
+                    
                 }
                 else if (currentForm == Form.bomb)
                 {
-                    List<Vector3Int> realActionPos = new List<Vector3Int>();
-                    realActionPos.Add(new Vector3Int(currentPos.x + 1, currentPos.y, 0));
-                    realActionPos.Add(new Vector3Int(currentPos.x - 1, currentPos.y, 0));
-                    realActionPos.Add(new Vector3Int(currentPos.x, currentPos.y + 1, 0));
-                    realActionPos.Add(new Vector3Int(currentPos.x, currentPos.y - 1, 0));
+                    List<Vector3Int> actionPos = new List<Vector3Int>();
+                    actionPos.Add(new Vector3Int(currentPos.x + 1, currentPos.y, 0));
+                    actionPos.Add(new Vector3Int(currentPos.x - 1, currentPos.y, 0));
+                    actionPos.Add(new Vector3Int(currentPos.x, currentPos.y + 1, 0));
+                    actionPos.Add(new Vector3Int(currentPos.x, currentPos.y - 1, 0));
 
-                    foreach (var pos in realActionPos)
+                    foreach (var pos in actionPos)
                     {
-                        Vector3Int actionPos = ConvertRealGridPos(pos);
-                        DeleteTile(stage, actionPos);
+                        //Vector3Int realActionPos = tileMapController.ConvertRealGridPos(pos);
+                        DeleteTile(stage, pos);
                     }
 
                     ChangeForm(Form.box);
+                    if (!controller.IsFacingRight()) { controller.Flip(); }
+                    transform.position = stageController.startPos.position;
                 }
 
 
@@ -200,7 +217,7 @@ public class PlayerMovement2D : MonoBehaviour
 
     }
 
-    void ChangeForm(Form form)
+    public void ChangeForm(Form form)
     {
         spriteRenderer.sprite = sprites[(int)form];
         currentForm = form;

@@ -5,15 +5,15 @@ using UnityEngine;
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
 
-    public TileMapController tileMapController { get; private set; }
-
+    
+    public StageController StageController { get; private set; }
 
 
     protected override void Awake()
     {
         base.Awake();
-        tileMapController = GetComponent<TileMapController>();
-
+        
+        StageController = GetComponent<StageController>();
 
     }
 
