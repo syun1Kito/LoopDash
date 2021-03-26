@@ -16,8 +16,11 @@ public class PlayerMovement2D : MonoBehaviour
     [SerializeField]
     Sprite[] sprites;
 
+    [SerializeField]
+    Collider2D itemGetCollider;
+
     public enum Form
-    { 
+    {
         box,
         bomb,
         none,
@@ -29,6 +32,7 @@ public class PlayerMovement2D : MonoBehaviour
     TileMapController tileMapController;
     StageController stageController;
     SpriteRenderer spriteRenderer;
+    Animator animator;
 
     float horizontalMove = 0f;
     bool jump = false;
@@ -44,6 +48,7 @@ public class PlayerMovement2D : MonoBehaviour
         tileMapController = stageController.tileMapController;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
         Init();
     }
@@ -81,7 +86,7 @@ public class PlayerMovement2D : MonoBehaviour
     {
 
         //horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-        horizontalMove = (controller.IsFacingRight()?1:-1) * runSpeed;
+        horizontalMove = (controller.IsFacingRight() ? 1 : -1) * runSpeed;
 
 
 
@@ -103,24 +108,24 @@ public class PlayerMovement2D : MonoBehaviour
 
     void BoundaryCheck()
     {
-        
 
-        
+
+
 
         var leftBoundPos = tileMapController.leftBoundPos;
         //var rightBoundPos = tileMapController.rightBoundPos;
         var loopedAreaWidth = tileMapController.loopedAreaWidth;
 
         var positionInLoopedArea = transform.position.x - leftBoundPos.x;
-        
+
 
         var tmpScreenSpace = Mathf.Floor(positionInLoopedArea / (int)loopedAreaWidth);
-        
+
         if (tmpScreenSpace != 0)
         {
             positionInLoopedArea = (positionInLoopedArea % loopedAreaWidth + loopedAreaWidth) % loopedAreaWidth;
-            
-            transform.position = new Vector3(leftBoundPos.x + positionInLoopedArea, transform.position.y,0);
+
+            transform.position = new Vector3(leftBoundPos.x + positionInLoopedArea, transform.position.y, 0);
 
             switch (currentForm)
             {
@@ -138,7 +143,7 @@ public class PlayerMovement2D : MonoBehaviour
         }
 
 
-        
+
 
     }
 
@@ -148,7 +153,7 @@ public class PlayerMovement2D : MonoBehaviour
         return currentPos;
     }
 
-   
+
     bool SetTile(Tilemap tilemap, Vector3Int pos, TileMapController.TileType type)
     {
         return tileMapController.SetTile(tilemap, pos, type);
@@ -157,7 +162,12 @@ public class PlayerMovement2D : MonoBehaviour
 
     bool DeleteTile(Tilemap tilemap, Vector3Int pos)
     {
-        return tileMapController.DeleteTile(tilemap,pos);
+        return tileMapController.DeleteTile(tilemap, pos);
+    }
+
+    bool TouchTile(Tilemap tilemap, Vector3Int pos)
+    {
+        return tileMapController.TouchTile(tilemap, pos);
     }
 
 
@@ -166,7 +176,7 @@ public class PlayerMovement2D : MonoBehaviour
         if (Input.anyKeyDown)
         {
             Tilemap stage = tileMapController.stage;
-            
+
 
 
             if (Input.GetButtonDown("PutTile"))
@@ -182,8 +192,8 @@ public class PlayerMovement2D : MonoBehaviour
                         if (!controller.IsFacingRight()) { controller.Flip(); }
                         transform.position = stageController.startPos.position;
                     }
-                    
-                    
+
+
                 }
                 else if (currentForm == Form.bomb)
                 {
@@ -206,7 +216,7 @@ public class PlayerMovement2D : MonoBehaviour
 
 
 
-                
+
             }
             //else if (Input.GetButtonDown("DeleteTile"))
             //{
@@ -221,15 +231,77 @@ public class PlayerMovement2D : MonoBehaviour
     {
         spriteRenderer.sprite = sprites[(int)form];
         currentForm = form;
+        animator.SetInteger("Form",(int)form);
+
 
     }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+        //List<Collider2D> hitColliders = new List<Collider2D>();
+
+        ColliderDistance2D colliderDistance = itemGetCollider.Distance(collision);
+
+        if (!colliderDistance.isValid)
+        {
+            return;
+        }
+
+        Vector3 hitPos;
+
+        if (colliderDistance.isOverlapped)
+        {
+            hitPos = colliderDistance.pointA; // point on the surface of this collider
+        }
+        else
+        {
+            hitPos = colliderDistance.pointB; // point on the surface of the other collider
+
+            Vector3 hitPosition = Vector3.zero;
+            Vector3 normal = colliderDistance.normal;
+
+            // move the hit location inside the collider a bit
+            // this assumes the colliders are basically touching
+            hitPos -= 0.01f * normal;
+
+
+
+        }
+
+
+        
+        //hitColliders.AddRange(Physics2D.OverlapPointAll(hitPoint));
+        // use hitColliders as a list of all colliders under the hit location
+
+
+        var item = tileMapController.item;
+        TouchTile(item, tileMapController.GetGridPos(hitPos));
+
+        //Vector3 hitPos = collision.ClosestPoint(transform.position);
+        //Debug.Log(tileMapController.GetGridPos(hitPos));
+
+        
+        //Debug.Log(tile);
+
+        
+
+        
+
+
+
+
         if (collision.tag == "Stage")
         {
             controller.Flip();
+
+
         }
+
+
+
+
+
     }
 }

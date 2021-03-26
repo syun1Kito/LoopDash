@@ -5,6 +5,12 @@ using UnityEngine;
 public class StageController : MonoBehaviour
 {
     [SerializeField]
+    bool isTitle;
+    [SerializeField]
+    bool isStageSelect;
+
+
+    [SerializeField]
     int stageNum;
 
 

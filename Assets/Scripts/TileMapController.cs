@@ -18,6 +18,7 @@ public class TileMapController : MonoBehaviour
     public Tilemap stage;
     public Tilemap front;
     public Tilemap back;
+    public Tilemap item;
 
     BoundsInt initialBound;
 
@@ -27,16 +28,30 @@ public class TileMapController : MonoBehaviour
     [SerializeField]
     Tile[] deletableTiles;
 
+    [SerializeField]
+    AnimatedTile[] animatedDamagedTiles;
+
+    [SerializeField]
+    Tile[] goalTiles;
+
+    [SerializeField]
+    AnimatedTile[] animatedItemTiles;
+
+    [SerializeField]
+    AnimatedTile[] animatedTeleporterTiles;
+
     public Vector3 leftBoundPos { get; private set; }
     public Vector3 rightBoundPos { get; private set; }
     public float loopedAreaWidth { get; private set; }
 
-
+    //TeleporterController teleporterController;
 
 
     // Start is called before the first frame update
     void Awake()
     {
+        //teleporterController = GetComponent<TeleporterController>();
+
         stage.CompressBounds();
         front.CompressBounds();
         back.CompressBounds();
@@ -125,6 +140,65 @@ public class TileMapController : MonoBehaviour
 
         return false;
     }
+
+
+    public bool TouchTile(Tilemap tilemap, Vector3Int pos)
+    {
+
+        pos = new Vector3Int((pos.x + (initialBound.max.x - initialBound.min.x)) % (initialBound.max.x - initialBound.min.x), pos.y, 0);
+
+        var realGridPos = ConvertRealGridPos(pos);
+        //Debug.Log(tilemap.GetTile(realGridPos));
+
+        if (animatedItemTiles.Contains(tilemap.GetTile(realGridPos)))
+        {
+            tilemap.SetTile(realGridPos, null);
+            //if (realGridPos.x == initialBound.min.x)
+            //{
+            //    tilemap.SetTile(realGridPos + new Vector3Int(initialBound.max.x - initialBound.min.x, 0, 0), null);
+            //}
+            //else if (realGridPos.x == initialBound.max.x - 1)
+            //{
+            //    tilemap.SetTile(realGridPos - new Vector3Int(initialBound.max.x - initialBound.min.x, 0, 0), null);
+            //}
+
+
+            return true;
+        }
+
+        if (animatedTeleporterTiles.Contains(tilemap.GetTile(realGridPos)))
+        {
+            //Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere),realGridPos + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
+            //Collider[] hitColliders = Physics.OverlapSphere(realGridPos + new Vector3(0.5f,0.5f,0), 0.5f);
+
+            //foreach (var item in hitColliders)
+            //{
+            //    Debug.Log(item.gameObject);
+            //}
+
+            //teleporterController.Teleport(realGridPos + new Vector3(0.5f, 0.5f, 0));
+        }
+
+        if (goalTiles.Contains(tilemap.GetTile(realGridPos)))
+        {
+            //if (realGridPos.x == initialBound.min.x)
+            //{               
+            //}
+            //else if (realGridPos.x == initialBound.max.x - 1)
+            //{               
+            //}
+
+            Debug.Log("goal");
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+
 
     public Vector3Int GetGridPos(Vector3 pos)
     {
