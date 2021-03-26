@@ -2502,7 +2502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 363893020143392223}
-  smoothness: 3
+  smoothness: 4
 --- !u!1 &5170543451371671533
 GameObject:
   m_ObjectHideFlags: 0

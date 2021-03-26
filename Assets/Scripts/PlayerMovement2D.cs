@@ -37,6 +37,9 @@ public class PlayerMovement2D : MonoBehaviour
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
+    public bool movable { get; set; } = true;
+
+    public Rigidbody2D rigidbody2D { get; private set; }
 
     Vector3Int currentPos;
     //int currentScreenSpace = 0;
@@ -49,6 +52,7 @@ public class PlayerMovement2D : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
 
         Init();
     }
@@ -66,11 +70,19 @@ public class PlayerMovement2D : MonoBehaviour
         GetGridPos(transform.position);
         //Debug.Log(currentPos);
 
+        //if (Input.GetKeyDown(KeyCode.X))
+        //{
+        //    StartCoroutine(FadeOut(gameObject,3));
+        //}
     }
 
     void FixedUpdate()
     {
         // Move our character
+        //if (movable)
+        //{
+        //    controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
+        //}
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
     }
@@ -236,6 +248,8 @@ public class PlayerMovement2D : MonoBehaviour
 
     }
 
+    
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -270,38 +284,18 @@ public class PlayerMovement2D : MonoBehaviour
 
         }
 
-
-        
-        //hitColliders.AddRange(Physics2D.OverlapPointAll(hitPoint));
-        // use hitColliders as a list of all colliders under the hit location
-
-
         var item = tileMapController.item;
         TouchTile(item, tileMapController.GetGridPos(hitPos));
-
-        //Vector3 hitPos = collision.ClosestPoint(transform.position);
-        //Debug.Log(tileMapController.GetGridPos(hitPos));
-
-        
-        //Debug.Log(tile);
-
-        
-
-        
-
-
 
 
         if (collision.tag == "Stage")
         {
             controller.Flip();
-
-
         }
-
-
-
-
-
     }
+
+
+
+
+
 }

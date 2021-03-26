@@ -9,7 +9,7 @@ public class Teleporter : MonoBehaviour
     GameObject oppositeTeleporter = null;
 
     [SerializeField]
-    BoxCollider2D collider;
+    CircleCollider2D collider;
 
     [SerializeField]
     string dst = "null";
@@ -19,7 +19,7 @@ public class Teleporter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        collider = GetComponent<BoxCollider2D>();
+        collider = GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame
@@ -31,7 +31,9 @@ public class Teleporter : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = new Color(0, 1, 0, 0.8f);
-        Gizmos.DrawCube(transform.position, collider.size);
+
+        //Gizmos.DrawCube(transform.position, collider.size);
+        Gizmos.DrawSphere(transform.position, collider.radius);
 
         if (oppositeTeleporter != null)
         {
@@ -42,6 +44,9 @@ public class Teleporter : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        var startDelay = 0.15f;
+        var fadeDelay = 0.8f;
+        var player = collision.gameObject.GetComponent<PlayerMovement2D>();
 
         if (collision.gameObject.tag == "Player" && teleportable)
         {
@@ -50,30 +55,62 @@ public class Teleporter : MonoBehaviour
 
                 oppositeTeleporter.GetComponent<Teleporter>().teleportable = false;
 
-                collision.gameObject.transform.position = oppositeTeleporter.transform.position;
-                collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+               
+                //player.movable = false;
+
+                StartCoroutine(Utility.DelayCoroutine(startDelay, () =>
+                {
+                    player.rigidbody2D.bodyType = RigidbodyType2D.Static;
+                    StartCoroutine(Utility.FadeOut(collision.gameObject, fadeDelay));
+                    StartCoroutine(Utility.DelayCoroutine(fadeDelay, () =>
+                    {
+                        collision.gameObject.transform.position = oppositeTeleporter.transform.position;
+
+                        StartCoroutine(Utility.FadeIn(collision.gameObject, fadeDelay));
+                        StartCoroutine(Utility.DelayCoroutine(fadeDelay, () =>
+                        {
+                            player.rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+                        }));
+                    }));
+                }));
+
+                
+
+                
+
+                
+
+                
+
+
+
 
             }
             else
             {
                 if (dst != "null")
                 {
-                    if (dst == "Exit") { Quit(); }
-                    SceneManager.LoadScene(dst);
+                    
+
+                    StartCoroutine(Utility.DelayCoroutine(startDelay, () =>
+                    {
+                        player.rigidbody2D.bodyType = RigidbodyType2D.Static;
+                        StartCoroutine(Utility.FadeOut(collision.gameObject, fadeDelay));
+                        StartCoroutine(Utility.DelayCoroutine(fadeDelay, () =>
+                        {
+                            if (dst == "Exit") { Quit(); }
+                            SceneManager.LoadScene(dst);
+                        }));
+                    }));
+
+
+                    
                 }
             }
 
         }
     }
 
-    void Quit()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#elif UNITY_STANDALONE
-      UnityEngine.Application.Quit();
-#endif
-    }
 
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -82,6 +119,16 @@ public class Teleporter : MonoBehaviour
         {
             teleportable = true;
         }
+    }
+
+
+    void Quit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#elif UNITY_STANDALONE
+      UnityEngine.Application.Quit();
+#endif
     }
 
 }
