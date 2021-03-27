@@ -60,10 +60,7 @@ public class PlayerMovement2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Move();
-
-        TileAction();
+        InputHandle();
 
         BoundaryCheck();
 
@@ -89,9 +86,20 @@ public class PlayerMovement2D : MonoBehaviour
 
     void Init()
     {
-        ChangeForm(Form.box);
-        if (!controller.IsFacingRight()) { controller.Flip(); }
-        transform.position = stageController.startPos.position;
+        Respawn();
+
+
+
+    }
+
+    void InputHandle()
+    {
+        Move();
+
+        TileAction();
+
+        if (Input.GetButtonDown("Respawn")) { Respawn(); }
+
     }
 
     void Move()
@@ -243,12 +251,41 @@ public class PlayerMovement2D : MonoBehaviour
     {
         spriteRenderer.sprite = sprites[(int)form];
         currentForm = form;
-        animator.SetInteger("Form",(int)form);
+        animator.SetInteger("Form", (int)form);
 
 
     }
 
-    
+    public void Respawn()
+    {
+        tileMapController.ReloadStage();
+
+        if (currentForm == Form.bomb) { ChangeForm(Form.box); }
+        if (!controller.IsFacingRight()) { controller.Flip(); }
+        transform.position = stageController.startPos.position;
+
+        rigidbody2D.bodyType = RigidbodyType2D.Static;
+
+        StartCoroutine(Utility.FadeIn(gameObject, Teleporter.FADE_DELAY));
+        StartCoroutine(Utility.DelayCoroutine(Teleporter.FADE_DELAY, () =>
+        {
+            rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+        }));
+    }
+
+    public void Damaged()
+    {
+        rigidbody2D.bodyType = RigidbodyType2D.Static;
+
+        StartCoroutine(Utility.FadeOut(gameObject, Teleporter.FADE_DELAY));
+        StartCoroutine(Utility.DelayCoroutine(Teleporter.FADE_DELAY, () =>
+        {
+            //rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+            Respawn();
+        }));
+
+
+    }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -294,8 +331,11 @@ public class PlayerMovement2D : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
 
 
-
+    }
 
 }

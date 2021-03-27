@@ -68,4 +68,13 @@ public class Utility : MonoBehaviour
 
     }
 
+    public static GameObject Clone(GameObject obj)
+    {
+        var clone = GameObject.Instantiate(obj) as GameObject;
+        clone.transform.parent = obj.transform.parent;
+        clone.transform.localPosition = obj.transform.localPosition;
+        clone.transform.localScale = obj.transform.localScale;
+        return clone;
+    }
+
 }

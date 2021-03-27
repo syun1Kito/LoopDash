@@ -8,6 +8,9 @@ using System.Linq;
 public class TileMapController : MonoBehaviour
 {
 
+    [SerializeField] PlayerMovement2D player;
+
+
     public enum TileType
     {
         putBlock,
@@ -16,9 +19,13 @@ public class TileMapController : MonoBehaviour
     }
 
     public Tilemap stage;
+    GameObject stageBackup;
+
     public Tilemap front;
     public Tilemap back;
+
     public Tilemap item;
+    GameObject itemBackup;
 
     BoundsInt initialBound;
 
@@ -46,11 +53,13 @@ public class TileMapController : MonoBehaviour
 
     //TeleporterController teleporterController;
 
+    
 
     // Start is called before the first frame update
     void Awake()
     {
         //teleporterController = GetComponent<TeleporterController>();
+
 
         stage.CompressBounds();
         front.CompressBounds();
@@ -64,6 +73,14 @@ public class TileMapController : MonoBehaviour
         loopedAreaWidth = rightBoundPos.x - leftBoundPos.x;
 
         SetBoundaryOppositeTile();
+
+        stageBackup = Utility.Clone(stage.gameObject);
+        stageBackup.name = "StageBackup";
+        stageBackup.SetActive(false);
+
+        itemBackup = Utility.Clone(item.gameObject);
+        itemBackup.name = "ItemBackup";
+        itemBackup.SetActive(false);
 
     }
 
@@ -166,20 +183,20 @@ public class TileMapController : MonoBehaviour
             return true;
         }
 
-        if (animatedTeleporterTiles.Contains(tilemap.GetTile(realGridPos)))
+        //if (animatedTeleporterTiles.Contains(tilemap.GetTile(realGridPos)))
+        //{          
+        //}
+
+        if (animatedDamagedTiles.Contains(tilemap.GetTile(realGridPos)))
         {
-            //Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere),realGridPos + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
-            //Collider[] hitColliders = Physics.OverlapSphere(realGridPos + new Vector3(0.5f,0.5f,0), 0.5f);
 
-            //foreach (var item in hitColliders)
-            //{
-            //    Debug.Log(item.gameObject);
-            //}
+            player.Damaged();
 
-            //teleporterController.Teleport(realGridPos + new Vector3(0.5f, 0.5f, 0));
+            return true;
         }
 
-        if (goalTiles.Contains(tilemap.GetTile(realGridPos)))
+
+            if (goalTiles.Contains(tilemap.GetTile(realGridPos)))
         {
             //if (realGridPos.x == initialBound.min.x)
             //{               
@@ -189,6 +206,7 @@ public class TileMapController : MonoBehaviour
             //}
 
             Debug.Log("goal");
+            player.Respawn();
 
             return true;
         }
@@ -239,5 +257,21 @@ public class TileMapController : MonoBehaviour
                 stage.SetTile(new Vector3Int(initialBound.min.x - 1, i, 0), tmpRightTile);
             }
         }
+    }
+
+    public void ReloadStage()
+    {
+        Destroy(GameObject.Find("Stage"));
+        GameObject newStage = Utility.Clone(stageBackup);
+        newStage.name = "Stage";
+        newStage.SetActive(true);
+        stage = newStage.GetComponent<Tilemap>();
+
+        Destroy(GameObject.Find("Item"));
+        GameObject newItem = Utility.Clone(itemBackup);
+        newItem.name = "Item";
+        newItem.SetActive(true);
+        item = newItem.GetComponent<Tilemap>();
+
     }
 }

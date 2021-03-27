@@ -39,8 +39,8 @@ public class StageController : MonoBehaviour
 
     void Init()
     {
-        var tmp = tileMapController.stage.WorldToCell(startPos.position);
-        startPos.position = new Vector3(tmp.x + 0.5f, tmp.y + 0.5f, 0);
-
+        //var tmp = tileMapController.stage.WorldToCell(startPos.position);
+        //startPos.position = new Vector3(tmp.x + 0.5f, tmp.y + 0.5f, 0);
+        
     }
 }

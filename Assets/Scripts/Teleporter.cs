@@ -14,7 +14,14 @@ public class Teleporter : MonoBehaviour
     [SerializeField]
     string dst = "null";
 
+
+
     public bool teleportable { get; set; } = true;
+
+
+    public static float START_DELAY { get; set; } = 0.15f;
+    public static float FADE_DELAY { get; set; } = 0.8f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -44,8 +51,7 @@ public class Teleporter : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var startDelay = 0.15f;
-        var fadeDelay = 0.8f;
+        
         var player = collision.gameObject.GetComponent<PlayerMovement2D>();
 
         if (collision.gameObject.tag == "Player" && teleportable)
@@ -58,16 +64,16 @@ public class Teleporter : MonoBehaviour
                
                 //player.movable = false;
 
-                StartCoroutine(Utility.DelayCoroutine(startDelay, () =>
+                StartCoroutine(Utility.DelayCoroutine(START_DELAY, () =>
                 {
                     player.rigidbody2D.bodyType = RigidbodyType2D.Static;
-                    StartCoroutine(Utility.FadeOut(collision.gameObject, fadeDelay));
-                    StartCoroutine(Utility.DelayCoroutine(fadeDelay, () =>
+                    StartCoroutine(Utility.FadeOut(collision.gameObject, FADE_DELAY));
+                    StartCoroutine(Utility.DelayCoroutine(FADE_DELAY, () =>
                     {
                         collision.gameObject.transform.position = oppositeTeleporter.transform.position;
 
-                        StartCoroutine(Utility.FadeIn(collision.gameObject, fadeDelay));
-                        StartCoroutine(Utility.DelayCoroutine(fadeDelay, () =>
+                        StartCoroutine(Utility.FadeIn(collision.gameObject, FADE_DELAY));
+                        StartCoroutine(Utility.DelayCoroutine(FADE_DELAY, () =>
                         {
                             player.rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
                         }));
@@ -92,11 +98,11 @@ public class Teleporter : MonoBehaviour
                 {
                     
 
-                    StartCoroutine(Utility.DelayCoroutine(startDelay, () =>
+                    StartCoroutine(Utility.DelayCoroutine(START_DELAY, () =>
                     {
                         player.rigidbody2D.bodyType = RigidbodyType2D.Static;
-                        StartCoroutine(Utility.FadeOut(collision.gameObject, fadeDelay));
-                        StartCoroutine(Utility.DelayCoroutine(fadeDelay, () =>
+                        StartCoroutine(Utility.FadeOut(collision.gameObject, FADE_DELAY));
+                        StartCoroutine(Utility.DelayCoroutine(FADE_DELAY, () =>
                         {
                             if (dst == "Exit") { Quit(); }
                             SceneManager.LoadScene(dst);
