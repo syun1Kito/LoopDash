@@ -784,19 +784,27 @@ MonoBehaviour:
   item: {fileID: 363893019954428715}
   putTiles:
   - {fileID: 11400000, guid: d56bfd1cd173cc94e83e8633c349f5ad, type: 2}
+  - {fileID: 11400000, guid: c337d8d010702f447a3b1f201e33a241, type: 2}
+  - {fileID: 11400000, guid: 952c63faa752feb4fb7ec3f474736d5d, type: 2}
+  - {fileID: 11400000, guid: 0f157f160e5a18d4ea3798725bceb3f1, type: 2}
+  - {fileID: 11400000, guid: 80ae8a353797c0548943a139dd53656e, type: 2}
+  - {fileID: 11400000, guid: 36f9b759eb5e8d04bb76296de3fe875d, type: 2}
   deletableTiles:
   - {fileID: 11400000, guid: a6f14e03f03e4ee4ba37bb9e68773dc8, type: 2}
   - {fileID: 11400000, guid: d56bfd1cd173cc94e83e8633c349f5ad, type: 2}
-  animatedDamagedTiles:
+  - {fileID: 11400000, guid: c337d8d010702f447a3b1f201e33a241, type: 2}
+  - {fileID: 11400000, guid: 952c63faa752feb4fb7ec3f474736d5d, type: 2}
+  - {fileID: 11400000, guid: 0f157f160e5a18d4ea3798725bceb3f1, type: 2}
+  - {fileID: 11400000, guid: 80ae8a353797c0548943a139dd53656e, type: 2}
+  - {fileID: 11400000, guid: 36f9b759eb5e8d04bb76296de3fe875d, type: 2}
+  damagedTiles:
   - {fileID: 11400000, guid: f20ebfa3b21969646908db231a7aefa4, type: 2}
   goalTiles:
   - {fileID: 11400000, guid: 129e3dcd30b38b840b573f77f7645068, type: 2}
   - {fileID: 11400000, guid: 3b1d0b5a73101994bbeca853ce77f71c, type: 2}
   - {fileID: 11400000, guid: a75a789cf95805141a4cc832c9d92297, type: 2}
-  animatedItemTiles:
+  ItemTiles:
   - {fileID: 11400000, guid: 64c66d852c3993047abb0e45047b6b77, type: 2}
-  animatedTeleporterTiles:
-  - {fileID: 11400000, guid: 6428d9a259c38094caa1a813e7a5a0ee, type: 2}
 --- !u!114 &363893019976283163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -964,6 +972,7 @@ MonoBehaviour:
   - {fileID: 3542636676032517427, guid: ba9384e5198ad0645adc5adf82040bfb, type: 3}
   - {fileID: -935418090482694838, guid: ba9384e5198ad0645adc5adf82040bfb, type: 3}
   itemGetCollider: {fileID: 363893020143392215}
+  tileActionDisableScene: 0000000001000000
 --- !u!50 &363893020143392212
 Rigidbody2D:
   serializedVersion: 4
@@ -1040,7 +1049,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.09894204}
+  m_Offset: {x: 0, y: 0.09675813}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1051,7 +1060,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.35912275}
+  m_Size: {x: 0.8, y: 0.36349058}
   m_EdgeRadius: 0
 --- !u!95 &363893020143392200
 Animator:

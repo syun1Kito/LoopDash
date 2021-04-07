@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq;
+using UnityEngine.SceneManagement;
+using System;
 
 //[RequireComponent(typeof(BoxCollider2D))]
 public class PlayerMovement2D : MonoBehaviour
@@ -29,6 +32,9 @@ public class PlayerMovement2D : MonoBehaviour
 
     Form currentForm;
 
+    [SerializeField]
+    SceneNameEnum[] tileActionDisableScene;
+
     TileMapController tileMapController;
     StageController stageController;
     SpriteRenderer spriteRenderer;
@@ -37,7 +43,7 @@ public class PlayerMovement2D : MonoBehaviour
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
-    public bool movable { get; set; } = true;
+    public bool playerInputable { get; set; } = true;
 
     public Rigidbody2D rigidbody2D { get; private set; }
 
@@ -94,12 +100,16 @@ public class PlayerMovement2D : MonoBehaviour
 
     void InputHandle()
     {
-        Move();
+        if (playerInputable)
+        {
 
-        TileAction();
+            Move();
 
-        if (Input.GetButtonDown("Respawn")) { Respawn(); }
+            TileAction();
 
+            if (Input.GetButtonDown("Respawn")) { Respawn(); }
+
+        }
     }
 
     void Move()
@@ -174,9 +184,9 @@ public class PlayerMovement2D : MonoBehaviour
     }
 
 
-    bool SetTile(Tilemap tilemap, Vector3Int pos, TileMapController.TileType type)
+    bool SetTile(Tilemap tilemap, Vector3Int pos, TileMapController.TileType type, bool set = true)
     {
-        return tileMapController.SetTile(tilemap, pos, type);
+        return tileMapController.SetTile(tilemap, pos, type, set);
 
     }
 
@@ -191,51 +201,101 @@ public class PlayerMovement2D : MonoBehaviour
     }
 
 
-    void TileAction()
+    bool TileAction()
     {
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown && IsTileActionableScene()  /*playerInputable*/)
         {
             Tilemap stage = tileMapController.stage;
+            Tilemap front = tileMapController.front;
 
 
 
             if (Input.GetButtonDown("PutTile"))
             {
+
+                Vector3Int tmpCurrentPos = currentPos;
+
                 if (currentForm == Form.box)
                 {
-                    Vector3Int actionPos = new Vector3Int(currentPos.x + (controller.IsFacingRight() ? 1 : -1), currentPos.y, 0);
-                    //Vector3Int realActionPos = tileMapController.ConvertRealGridPos(actionPos);
 
-                    if (SetTile(stage, actionPos, TileMapController.TileType.putBlock))
+                    Vector3Int actionPos = new Vector3Int(tmpCurrentPos.x + (controller.IsFacingRight() ? 1 : -1), tmpCurrentPos.y, 0);
+                    if (!SetTile(stage, actionPos, TileMapController.TileType.putBlock, false))
                     {
-                        ChangeForm(Form.bomb);
-                        if (!controller.IsFacingRight()) { controller.Flip(); }
-                        transform.position = stageController.startPos.position;
+                        return false;
                     }
 
+                    if (controller.IsFacingRight())
+                    {
+                        SetTile(front, tmpCurrentPos, TileMapController.TileType.boxRightFrom);
+                        SetTile(front, actionPos, TileMapController.TileType.boxRightTo);
+                    }
+                    else
+                    {
+                        SetTile(front, tmpCurrentPos, TileMapController.TileType.boxLeftFrom);
+                        SetTile(front, actionPos, TileMapController.TileType.boxLeftTo);
+                    }
+
+                    StartCoroutine(Utility.DelayCoroutine(0.8f, () =>
+                    {
+                        SetTile(stage, actionPos, TileMapController.TileType.putBlock);
+                        DeleteTile(front, tmpCurrentPos);
+                        DeleteTile(front, actionPos);
+                    }));
 
                 }
                 else if (currentForm == Form.bomb)
                 {
-                    List<Vector3Int> actionPos = new List<Vector3Int>();
-                    actionPos.Add(new Vector3Int(currentPos.x + 1, currentPos.y, 0));
-                    actionPos.Add(new Vector3Int(currentPos.x - 1, currentPos.y, 0));
-                    actionPos.Add(new Vector3Int(currentPos.x, currentPos.y + 1, 0));
-                    actionPos.Add(new Vector3Int(currentPos.x, currentPos.y - 1, 0));
+                    List<Vector3Int> destroyPos = new List<Vector3Int>();
+                    destroyPos.Add(tmpCurrentPos);
+                    destroyPos.Add(new Vector3Int(tmpCurrentPos.x + 1, tmpCurrentPos.y, 0));
+                    destroyPos.Add(new Vector3Int(tmpCurrentPos.x - 1, tmpCurrentPos.y, 0));
+                    destroyPos.Add(new Vector3Int(tmpCurrentPos.x, tmpCurrentPos.y + 1, 0));
+                    destroyPos.Add(new Vector3Int(tmpCurrentPos.x, tmpCurrentPos.y - 1, 0));
 
-                    foreach (var pos in actionPos)
+                    foreach (var pos in destroyPos)
                     {
-                        //Vector3Int realActionPos = tileMapController.ConvertRealGridPos(pos);
                         DeleteTile(stage, pos);
+                        SetTile(front, pos, TileMapController.TileType.explode);
                     }
 
-                    ChangeForm(Form.box);
-                    if (!controller.IsFacingRight()) { controller.Flip(); }
-                    transform.position = stageController.startPos.position;
+                    StartCoroutine(Utility.DelayCoroutine(0.8f, () =>
+                    {
+                        foreach (var pos in destroyPos)
+                        {
+                            DeleteTile(front, pos);
+                        }
+                    }));
                 }
 
+                playerInputable = false;
+
+                var fadeTime = 0.15f;
+                rigidbody2D.bodyType = RigidbodyType2D.Static;
+                StartCoroutine(Utility.FadeOut(gameObject, fadeTime));
+                StartCoroutine(Utility.DelayCoroutine(.8f, () =>
+                {
+                    if (currentForm == Form.box)
+                    {
+                        ChangeForm(Form.bomb);
+                    }
+                    else if (currentForm == Form.bomb)
+                    {
+                        ChangeForm(Form.box);
+                    }
+
+                    if (!controller.IsFacingRight()) { controller.Flip(); }
+                    transform.position = stageController.startPos.position;
 
 
+                    StartCoroutine(Utility.FadeIn(gameObject, Teleporter.FADE_DELAY));
+                    StartCoroutine(Utility.DelayCoroutine(Teleporter.FADE_DELAY, () =>
+                    {
+                        rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+                        playerInputable = true;
+                    }));
+                }));
+
+                return true;
 
             }
             //else if (Input.GetButtonDown("DeleteTile"))
@@ -244,7 +304,7 @@ public class PlayerMovement2D : MonoBehaviour
             //}
         }
 
-
+        return false;
     }
 
     public void ChangeForm(Form form)
@@ -260,9 +320,13 @@ public class PlayerMovement2D : MonoBehaviour
     {
         tileMapController.ReloadStage();
 
+        playerInputable = false;
+
         if (currentForm == Form.bomb) { ChangeForm(Form.box); }
         if (!controller.IsFacingRight()) { controller.Flip(); }
         transform.position = stageController.startPos.position;
+
+
 
         rigidbody2D.bodyType = RigidbodyType2D.Static;
 
@@ -270,6 +334,7 @@ public class PlayerMovement2D : MonoBehaviour
         StartCoroutine(Utility.DelayCoroutine(Teleporter.FADE_DELAY, () =>
         {
             rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+            playerInputable = true;
         }));
     }
 
@@ -285,6 +350,15 @@ public class PlayerMovement2D : MonoBehaviour
         }));
 
 
+    }
+
+    public bool IsTileActionableScene() {
+
+        if (tileActionDisableScene.Contains((SceneNameEnum)Enum.ToObject(typeof(SceneNameEnum), SceneManager.GetActiveScene().buildIndex))) 
+        {
+            return false;
+        }
+            return true;
     }
 
 
@@ -333,7 +407,7 @@ public class PlayerMovement2D : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+
 
 
     }

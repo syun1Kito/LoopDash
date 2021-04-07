@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 
 public class TileMapController : MonoBehaviour
@@ -14,9 +15,13 @@ public class TileMapController : MonoBehaviour
     public enum TileType
     {
         putBlock,
-
-
+        explode,
+        boxRightFrom,
+        boxRightTo,
+        boxLeftFrom,
+        boxLeftTo,
     }
+
 
     public Tilemap stage;
     GameObject stageBackup;
@@ -30,22 +35,22 @@ public class TileMapController : MonoBehaviour
     BoundsInt initialBound;
 
     [SerializeField]
-    Tile[] putTiles;
+    TileBase[] putTiles;
 
     [SerializeField]
-    Tile[] deletableTiles;
+    TileBase[] deletableTiles;
 
     [SerializeField]
-    AnimatedTile[] animatedDamagedTiles;
+    TileBase[] damagedTiles;
 
     [SerializeField]
-    Tile[] goalTiles;
+    TileBase[] goalTiles;
 
     [SerializeField]
-    AnimatedTile[] animatedItemTiles;
+    TileBase[] ItemTiles;
 
-    [SerializeField]
-    AnimatedTile[] animatedTeleporterTiles;
+    //[SerializeField]
+    //TileBase[] TeleporterTiles;
 
     public Vector3 leftBoundPos { get; private set; }
     public Vector3 rightBoundPos { get; private set; }
@@ -53,7 +58,7 @@ public class TileMapController : MonoBehaviour
 
     //TeleporterController teleporterController;
 
-    
+
 
     // Start is called before the first frame update
     void Awake()
@@ -93,15 +98,15 @@ public class TileMapController : MonoBehaviour
 
 
 
-    public Tile GetTileByType(TileType type)
+    public TileBase GetTileByType(TileType type)
     {
         return putTiles[(int)type];
     }
 
-    public bool SetTile(Tilemap tilemap, Vector3Int pos, TileType type)
+    public bool SetTile(Tilemap tilemap, Vector3Int pos, TileType type, bool set = true)
     {
 
-        var dummy = pos;
+        //var dummy = pos;
         pos = new Vector3Int((pos.x + (initialBound.max.x - initialBound.min.x)) % (initialBound.max.x - initialBound.min.x), pos.y, 0);
 
 
@@ -110,19 +115,24 @@ public class TileMapController : MonoBehaviour
 
         if (tilemap.GetTile(realGridPos) == null)
         {
-            Tile tile = GetTileByType(type);
-            tilemap.SetTile(realGridPos, tile);
-            //Debug.Log(realGridPos.x);
-            //Debug.Log(initialBound.max.x);
-            if (realGridPos.x == initialBound.min.x)
+            if (set)
             {
-                tilemap.SetTile(realGridPos + new Vector3Int(initialBound.max.x - initialBound.min.x, 0, 0), tile);
-            }
-            else if (realGridPos.x == initialBound.max.x - 1)
-            {
-                tilemap.SetTile(realGridPos - new Vector3Int(initialBound.max.x - initialBound.min.x, 0, 0), tile);
-            }
 
+
+                TileBase tile = GetTileByType(type);
+
+                tilemap.SetTile(realGridPos, tile);
+                //Debug.Log(realGridPos.x);
+                //Debug.Log(initialBound.max.x);
+                if (realGridPos.x == initialBound.min.x)
+                {
+                    tilemap.SetTile(realGridPos + new Vector3Int(initialBound.max.x - initialBound.min.x, 0, 0), tile);
+                }
+                else if (realGridPos.x == initialBound.max.x - 1)
+                {
+                    tilemap.SetTile(realGridPos - new Vector3Int(initialBound.max.x - initialBound.min.x, 0, 0), tile);
+                }
+            }
 
             return true;
         }
@@ -141,6 +151,7 @@ public class TileMapController : MonoBehaviour
 
         if (deletableTiles.Contains(tilemap.GetTile(realGridPos)))
         {
+            //Debug.Log(realGridPos);
             tilemap.SetTile(realGridPos, null);
             if (realGridPos.x == initialBound.min.x)
             {
@@ -167,7 +178,7 @@ public class TileMapController : MonoBehaviour
         var realGridPos = ConvertRealGridPos(pos);
         //Debug.Log(tilemap.GetTile(realGridPos));
 
-        if (animatedItemTiles.Contains(tilemap.GetTile(realGridPos)))
+        if (ItemTiles.Contains(tilemap.GetTile(realGridPos)))
         {
             tilemap.SetTile(realGridPos, null);
             //if (realGridPos.x == initialBound.min.x)
@@ -187,7 +198,7 @@ public class TileMapController : MonoBehaviour
         //{          
         //}
 
-        if (animatedDamagedTiles.Contains(tilemap.GetTile(realGridPos)))
+        if (damagedTiles.Contains(tilemap.GetTile(realGridPos)))
         {
 
             player.Damaged();
@@ -196,7 +207,7 @@ public class TileMapController : MonoBehaviour
         }
 
 
-            if (goalTiles.Contains(tilemap.GetTile(realGridPos)))
+        if (goalTiles.Contains(tilemap.GetTile(realGridPos)))
         {
             //if (realGridPos.x == initialBound.min.x)
             //{               
@@ -206,7 +217,8 @@ public class TileMapController : MonoBehaviour
             //}
 
             Debug.Log("goal");
-            player.Respawn();
+            //player.Respawn();
+            SceneManager.LoadScene(SceneNameEnum.StageSelect.ToString());
 
             return true;
         }
@@ -261,6 +273,7 @@ public class TileMapController : MonoBehaviour
 
     public void ReloadStage()
     {
+        
         Destroy(GameObject.Find("Stage"));
         GameObject newStage = Utility.Clone(stageBackup);
         newStage.name = "Stage";

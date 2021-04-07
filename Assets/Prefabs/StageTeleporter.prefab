@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oppositeTeleporter: {fileID: 0}
   collider: {fileID: 6593773893358903708}
-  dst: null
+  loadSceneName: 2
 --- !u!61 &5520185030827870199
 BoxCollider2D:
   m_ObjectHideFlags: 0

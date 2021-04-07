@@ -11,8 +11,10 @@ public class Teleporter : MonoBehaviour
     [SerializeField]
     CircleCollider2D collider;
 
+    //[SerializeField]
+    //string dst = "null";
     [SerializeField]
-    string dst = "null";
+    SceneNameEnum loadSceneName; 
 
 
 
@@ -61,8 +63,8 @@ public class Teleporter : MonoBehaviour
 
                 oppositeTeleporter.GetComponent<Teleporter>().teleportable = false;
 
-               
-                //player.movable = false;
+
+                player.playerInputable = false;
 
                 StartCoroutine(Utility.DelayCoroutine(START_DELAY, () =>
                 {
@@ -76,6 +78,7 @@ public class Teleporter : MonoBehaviour
                         StartCoroutine(Utility.DelayCoroutine(FADE_DELAY, () =>
                         {
                             player.rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+                            player.playerInputable = true;
                         }));
                     }));
                 }));
@@ -94,7 +97,7 @@ public class Teleporter : MonoBehaviour
             }
             else
             {
-                if (dst != "null")
+                if (loadSceneName != SceneNameEnum.Null )
                 {
                     
 
@@ -104,8 +107,8 @@ public class Teleporter : MonoBehaviour
                         StartCoroutine(Utility.FadeOut(collision.gameObject, FADE_DELAY));
                         StartCoroutine(Utility.DelayCoroutine(FADE_DELAY, () =>
                         {
-                            if (dst == "Exit") { Quit(); }
-                            SceneManager.LoadScene(dst);
+                            if (loadSceneName == SceneNameEnum.Exit) { Quit(); }
+                            SceneManager.LoadScene(loadSceneName.ToString());
                         }));
                     }));
 

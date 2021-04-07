@@ -194,6 +194,102 @@ TextureImporter:
   - first:
       213: -2396341355648249334
     second: LoopDash1_63
+  - first:
+      213: 6683594102755078178
+    second: LoopDash2_0
+  - first:
+      213: 7751182194773691180
+    second: LoopDash2_1
+  - first:
+      213: 4542436501050334593
+    second: LoopDash2_2
+  - first:
+      213: -337996493736323854
+    second: LoopDash2_3
+  - first:
+      213: -9179084340054512053
+    second: LoopDash2_4
+  - first:
+      213: 3537237941865629301
+    second: LoopDash2_5
+  - first:
+      213: -1876209733070280255
+    second: LoopDash2_6
+  - first:
+      213: 3698016496010763050
+    second: LoopDash2_7
+  - first:
+      213: 2538373527895511013
+    second: LoopDash2_8
+  - first:
+      213: 3090199672520093127
+    second: LoopDash2_9
+  - first:
+      213: -3935327099348851430
+    second: LoopDash2_10
+  - first:
+      213: -8558263745279260977
+    second: LoopDash2_11
+  - first:
+      213: -1645813149480853149
+    second: LoopDash2_12
+  - first:
+      213: 2326063010084821284
+    second: LoopDash2_13
+  - first:
+      213: 3080928114327976241
+    second: LoopDash2_14
+  - first:
+      213: 9072195373371465141
+    second: LoopDash2_15
+  - first:
+      213: -5034015532782875554
+    second: LoopDash2_16
+  - first:
+      213: 6357239772864100642
+    second: LoopDash2_17
+  - first:
+      213: -9143079972211437444
+    second: LoopDash2_18
+  - first:
+      213: -2403637906806331233
+    second: LoopDash2_19
+  - first:
+      213: -6822049663230449935
+    second: LoopDash2_20
+  - first:
+      213: 585465523463075413
+    second: LoopDash2_21
+  - first:
+      213: -5055155177255398289
+    second: LoopDash2_22
+  - first:
+      213: 4068042992995338138
+    second: LoopDash2_23
+  - first:
+      213: 4087985524696732006
+    second: LoopDash2_24
+  - first:
+      213: 8311191122180756172
+    second: LoopDash2_25
+  - first:
+      213: 9190865607960105585
+    second: LoopDash2_26
+  - first:
+      213: -2571508664850854712
+    second: LoopDash2_27
+  - first:
+      213: 2969131613174966348
+    second: LoopDash2_28
+  - first:
+      213: 5045407220485514231
+    second: LoopDash2_29
+  - first:
+      213: -2260065991687297171
+    second: LoopDash2_30
+  - first:
+      213: 3855655217033321765
+    second: LoopDash2_31
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -232,7 +328,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -315,7 +411,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LoopDash1_0
+      name: LoopDash2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -329,14 +425,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 804f9826d880af540800000000000000
-      internalID: 5042352136131310600
+      spriteID: 220bc9ddc65e0cc50800000000000000
+      internalID: 6683594102755078178
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_1
+      name: LoopDash2_1
       rect:
         serializedVersion: 2
         x: 16
@@ -350,14 +446,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48bc99ccf642500c0800000000000000
-      internalID: -4610238580951233660
+      spriteID: c2b81dc732bb19b60800000000000000
+      internalID: 7751182194773691180
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_2
+      name: LoopDash2_2
       rect:
         serializedVersion: 2
         x: 32
@@ -371,14 +467,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 670e3244013796b70800000000000000
-      internalID: 8892765452919627894
+      spriteID: 18d9fdb4ee9f90f30800000000000000
+      internalID: 4542436501050334593
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_3
+      name: LoopDash2_3
       rect:
         serializedVersion: 2
         x: 48
@@ -389,21 +485,17 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: -8, y: -8}
-        - {x: 8, y: -8}
-        - {x: 8, y: 8}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d358a1b3f2755cc20800000000000000
-      internalID: 3226080568447501629
+      spriteID: 2f4d48fcaf13f4bf0800000000000000
+      internalID: -337996493736323854
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_4
+      name: LoopDash2_4
       rect:
         serializedVersion: 2
         x: 64
@@ -417,14 +509,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2abe6bca779a7b040800000000000000
-      internalID: 4663382270629309346
+      spriteID: b4e23b3fc675d9080800000000000000
+      internalID: -9179084340054512053
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_5
+      name: LoopDash2_5
       rect:
         serializedVersion: 2
         x: 80
@@ -435,21 +527,17 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: -8, y: -8}
-        - {x: 8, y: -8}
-        - {x: 8, y: 8}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2bc29f154c7bfb680800000000000000
-      internalID: -8737062698258715470
+      spriteID: 5764fe2ca2bc61130800000000000000
+      internalID: 3537237941865629301
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_6
+      name: LoopDash2_6
       rect:
         serializedVersion: 2
         x: 96
@@ -460,21 +548,38 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: -8, y: -8}
-        - {x: 8, y: -8}
-        - {x: 8, y: 8}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebaa48ac0853b65a0800000000000000
-      internalID: -6527064407673623874
+      spriteID: 1c92738303d56f5e0800000000000000
+      internalID: -1876209733070280255
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_7
+      name: LoopDash2_7
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2b9142096ef15330800000000000000
+      internalID: 3698016496010763050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoopDash2_8
       rect:
         serializedVersion: 2
         x: 0
@@ -488,18 +593,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7455a8cad0d56cef0800000000000000
-      internalID: -88280829376441017
+      spriteID: 5ef8775564d1a3320800000000000000
+      internalID: 2538373527895511013
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_8
+      name: LoopDash2_9
       rect:
         serializedVersion: 2
-        x: 16
-        y: 96
+        x: 0
+        y: 0
         width: 16
         height: 16
       alignment: 0
@@ -509,123 +614,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29fa5ecb0145661c0800000000000000
-      internalID: -4510825545899593838
+      spriteID: 7cda695ca3892ea20800000000000000
+      internalID: 3090199672520093127
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_9
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 96
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4376d6e70ddbcfc60800000000000000
-      internalID: 7853360553399248692
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_10
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 96
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a28adb92a35105930800000000000000
-      internalID: 4129824197851326506
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_11
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 96
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dd10802b916ab7c30800000000000000
-      internalID: 4358259693702349277
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_12
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 96
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d84cf1680103a33a0800000000000000
-      internalID: -6684977849350241139
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_13
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 96
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: -8, y: -8}
-        - {x: 8, y: -8}
-        - {x: 8, y: 8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8c3c59cd19ae0c770800000000000000
-      internalID: 8629154798233830344
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_14
+      name: LoopDash2_12
       rect:
         serializedVersion: 2
         x: 0
@@ -639,14 +635,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 786e5ca870314b5f0800000000000000
-      internalID: -741947115495364985
+      spriteID: 361e68219a5e829e0800000000000000
+      internalID: -1645813149480853149
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_15
+      name: LoopDash2_13
       rect:
         serializedVersion: 2
         x: 16
@@ -660,14 +656,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25e1866d7febe0240800000000000000
-      internalID: 4759951827840540242
+      spriteID: 4291841dbf5d74020800000000000000
+      internalID: 2326063010084821284
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_16
+      name: LoopDash2_14
       rect:
         serializedVersion: 2
         x: 32
@@ -681,14 +677,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ace46e26dcb7e310800000000000000
-      internalID: 1434322634428181667
+      spriteID: 1397809ebc7a1ca20800000000000000
+      internalID: 3080928114327976241
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_17
+      name: LoopDash2_15
       rect:
         serializedVersion: 2
         x: 48
@@ -699,21 +695,17 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: -8, y: -8}
-        - {x: 8, y: -8}
-        - {x: 8, y: 8}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff258b96cebdbfa10800000000000000
-      internalID: 1944389472572953343
+      spriteID: 5bd9fb220a9e6ed70800000000000000
+      internalID: 9072195373371465141
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_18
+      name: LoopDash2_16
       rect:
         serializedVersion: 2
         x: 64
@@ -727,64 +719,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 50767636db08e69f0800000000000000
-      internalID: -473299359922428155
+      spriteID: e5c8da65b85932ab0800000000000000
+      internalID: -5034015532782875554
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_19
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 80
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: -8, y: -8}
-        - {x: 8, y: -8}
-        - {x: 8, y: 8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: dfaf0c0ff1e053aa0800000000000000
-      internalID: -6182019383150183683
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_20
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 80
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: -8, y: -8}
-        - {x: 8, y: -8}
-        - {x: 8, y: 8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3a9fa6e10fb8ea270800000000000000
-      internalID: 8263696229690177955
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_21
+      name: LoopDash2_17
       rect:
         serializedVersion: 2
         x: 0
@@ -798,35 +740,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6dc3aa04cbb2ba1e0800000000000000
-      internalID: -2185605106619499306
+      spriteID: 229bc8d24e3793850800000000000000
+      internalID: 6357239772864100642
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_22
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 64
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6a99de5f0f8941760800000000000000
-      internalID: 7427729846126352806
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_23
+      name: LoopDash2_18
       rect:
         serializedVersion: 2
         x: 32
@@ -837,119 +758,17 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -6, y: 8}
-        - {x: -8, y: 4}
-        - {x: -8, y: -8}
-        - {x: 8, y: -8}
-        - {x: 8, y: 3}
-        - {x: 6, y: 8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3d17cce6a6059eb50800000000000000
-      internalID: 6622913145080672723
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_24
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 64
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: -8, y: -8}
-        - {x: 8, y: -8}
-        - {x: 8, y: 8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 19a65b7874cd20710800000000000000
-      internalID: 1658129812603366033
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_25
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 64
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: -8, y: -8}
-        - {x: 8, y: -8}
-        - {x: 8, y: 8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: bfced974f40cf2690800000000000000
-      internalID: -7624664197378478853
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_26
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 64
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: -8, y: -8}
-        - {x: 8, y: -8}
-        - {x: 8, y: 8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8ef5a3065fbe85500800000000000000
-      internalID: 385317207254130664
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_27
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 64
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eedec1b281792f150800000000000000
-      internalID: 5904948191494467054
+      spriteID: c70595715314d1180800000000000000
+      internalID: -9143079972211437444
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_28
+      name: LoopDash2_19
       rect:
         serializedVersion: 2
         x: 0
@@ -963,14 +782,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e4ef11567d62cf90800000000000000
-      internalID: -6934860121262529310
+      spriteID: f98252c0f0094aed0800000000000000
+      internalID: -2403637906806331233
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_29
+      name: LoopDash2_20
       rect:
         serializedVersion: 2
         x: 16
@@ -981,24 +800,17 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: 1, y: 5}
-        - {x: -5, y: 5}
-        - {x: -8, y: -2}
-        - {x: -8, y: -8}
-        - {x: 8, y: -8}
-        - {x: 8, y: 1}
-        - {x: 4, y: 4}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ee554f3e37ea5910800000000000000
-      internalID: 1827026853387656928
+      spriteID: 1f6631fd9f53351a0800000000000000
+      internalID: -6822049663230449935
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_30
+      name: LoopDash2_21
       rect:
         serializedVersion: 2
         x: 32
@@ -1012,14 +824,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b0d2e28f1f21f1d0800000000000000
-      internalID: -3318819638008950599
+      spriteID: 556314aaacdff1800800000000000000
+      internalID: 585465523463075413
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_31
+      name: LoopDash2_22
       rect:
         serializedVersion: 2
         x: 0
@@ -1033,14 +845,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33550338949f92130800000000000000
-      internalID: 3542636676032517427
+      spriteID: f64173f462b78d9b0800000000000000
+      internalID: -5055155177255398289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_32
+      name: LoopDash2_23
       rect:
         serializedVersion: 2
         x: 16
@@ -1054,14 +866,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 040d7ecf746a9d3c0800000000000000
-      internalID: -4334250338251452352
+      spriteID: a9701887c87947830800000000000000
+      internalID: 4068042992995338138
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_33
+      name: LoopDash2_24
       rect:
         serializedVersion: 2
         x: 0
@@ -1075,14 +887,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a450e48e33ab403f0800000000000000
-      internalID: -935418090482694838
+      spriteID: 661dc76fc217bb830800000000000000
+      internalID: 4087985524696732006
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_34
+      name: LoopDash2_25
       rect:
         serializedVersion: 2
         x: 16
@@ -1096,35 +908,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28d01adf2d25ff610800000000000000
-      internalID: 1657134254047432066
+      spriteID: cc2d6f18a48475370800000000000000
+      internalID: 8311191122180756172
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_35
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6c939f718ffa3f310800000000000000
-      internalID: 1437686186150279622
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_36
+      name: LoopDash2_26
       rect:
         serializedVersion: 2
         x: 16
@@ -1138,14 +929,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b76a7f5fa9b409100800000000000000
-      internalID: 112673119607957115
+      spriteID: 17211dc33938c8f70800000000000000
+      internalID: 9190865607960105585
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_37
+      name: LoopDash2_10
       rect:
         serializedVersion: 2
         x: 48
@@ -1159,14 +950,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4eeaacdf6e378a040800000000000000
-      internalID: 4659101250452369124
+      spriteID: a15e7587ad8e269c0800000000000000
+      internalID: -3935327099348851430
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_38
+      name: LoopDash2_11
       rect:
         serializedVersion: 2
         x: 64
@@ -1180,18 +971,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01126d893011e8710800000000000000
-      internalID: 1697312816711999760
+      spriteID: fc68680a770fa3980800000000000000
+      internalID: -8558263745279260977
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_39
+      name: LoopDash2_27
       rect:
         serializedVersion: 2
-        x: 112
-        y: 96
+        x: 48
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -1201,188 +992,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a44a67a53f19a870800000000000000
-      internalID: 8694514870917940390
+      spriteID: 8ccc9b66e7a205cd0800000000000000
+      internalID: -2571508664850854712
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_40
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 48
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: -8}
-        - {x: 8, y: -8}
-        - {x: 8, y: 8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: c838ba60b65e3f370800000000000000
-      internalID: 8355273981538567052
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_41
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 48
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: -8, y: -8}
-        - {x: 8, y: -8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: ccd9f3a6e823a73e0800000000000000
-      internalID: -2055274692691911220
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_42
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: 8, y: -8}
-        - {x: 8, y: 8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: f2b83b4bd60398150800000000000000
-      internalID: 5875280436622756655
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_43
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: -8, y: -8}
-        - {x: 8, y: 8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8bf59be390629a000800000000000000
-      internalID: 47611092212998072
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LoopDash1_44
+      name: LoopDash2_28
       rect:
         serializedVersion: 2
         x: 64
-        y: 0
+        y: 32
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3511ca4fdcb56acf0800000000000000
-      internalID: -241404589886402221
+      spriteID: c482da69879743920800000000000000
+      internalID: 2969131613174966348
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_45
+      name: LoopDash2_29
       rect:
         serializedVersion: 2
-        x: 80
-        y: 0
+        x: 48
+        y: 16
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9886f3d908d3e7920800000000000000
-      internalID: 2989894825223874697
+      spriteID: 7f3ea34a223e40640800000000000000
+      internalID: 5045407220485514231
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_46
+      name: LoopDash2_30
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
+        x: 64
+        y: 16
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca0c60fffe3f24dc0800000000000000
-      internalID: -3656091735370055508
+      spriteID: d67a98474f1a2a0e0800000000000000
+      internalID: -2260065991687297171
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LoopDash1_47
+      name: LoopDash2_31
       rect:
         serializedVersion: 2
-        x: 112
+        x: 48
         y: 0
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0aa503d6a3f1cac10800000000000000
-      internalID: 2066060664856664736
+      spriteID: 52d17a3edf9028530800000000000000
+      internalID: 3855655217033321765
       vertices: []
       indices: 
       edges: []
