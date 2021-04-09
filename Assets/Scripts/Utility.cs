@@ -19,7 +19,8 @@ public class Utility : MonoBehaviour
 
     public static IEnumerator DelayCoroutine(float seconds, Action action)
     {
-        yield return new WaitForSeconds(seconds);
+        //yield return new WaitForSeconds(seconds);
+        yield return new WaitForSecondsRealtime(seconds) ;
         action?.Invoke();
     }
 
