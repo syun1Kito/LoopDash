@@ -37918,6 +37918,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameSet
       objectReference: {fileID: 0}
+    - target: {fileID: 6990138645671685149, guid: db3569f961b9e7b4da960eb9ed9641ce,
+        type: 3}
+      propertyPath: canUseStageSelect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7908960487381793803, guid: db3569f961b9e7b4da960eb9ed9641ce,
         type: 3}
       propertyPath: m_RootOrder

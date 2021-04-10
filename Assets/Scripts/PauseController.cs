@@ -15,6 +15,7 @@ public class PauseController : MonoBehaviour
         Resume,
         StageSelect,
         Title,
+        PauseStateMax,
     }
 
     EventSystem eventSystem;
@@ -30,6 +31,14 @@ public class PauseController : MonoBehaviour
     //GameObject pauseUI;
 
     string previousState;
+
+
+    [SerializeField]
+    bool canUseResume = true;
+    [SerializeField]
+    bool canUseStageSelect = true;
+    [SerializeField]
+    bool canUseTitle = true;
 
     //TimeController timeController;
 
@@ -51,6 +60,15 @@ public class PauseController : MonoBehaviour
         //previousState = eventSystem.currentSelectedGameObject.name;
         //timeController = GetComponent<TimeController>();
         animator.SetInteger("PauseState", (int)PauseState.Idle);
+
+
+        Color disable = new Color(1.0f,1.0f,1.0f,0.5f);
+        if (!canUseResume) { pauseUI.transform.Find("PauseSet/Resume").gameObject.GetComponent<Image>().color = disable; }
+        if (!canUseStageSelect) { pauseUI.transform.Find("PauseSet/StageSelect").gameObject.GetComponent<Image>().color = disable; }
+        if (!canUseTitle) { pauseUI.transform.Find("PauseSet/Title").gameObject.GetComponent<Image>().color = disable; }
+
+
+        Resume();
     }
 
     // Update is called once per frame
@@ -88,7 +106,7 @@ public class PauseController : MonoBehaviour
                     }
                 }
 
-                
+
 
                 if (Input.GetButtonDown("Submit"))
                 {
@@ -131,18 +149,18 @@ public class PauseController : MonoBehaviour
     }
     public void Resume()
     {
-        //eventSystem.SetSelectedGameObject(pauseUI.transform.Find("PausePanel/Resume").gameObject);
-        //pauseUI.SetActive(false);
-        animator.SetInteger("PauseState", (int)PauseState.Idle);
-
-        StartCoroutine(Utility.DelayCoroutine(1.0f, () =>
+        if (canUseResume)
         {
-            Time.timeScale = 1f;
-        }));
+            animator.SetInteger("PauseState", (int)PauseState.Idle);
 
-        //timeController.ToggleIsRunning();
-        isPaused = false;
-        //AudioController.Instance.PlaySE(AudioController.SE.exit);
+            StartCoroutine(Utility.DelayCoroutine(1.0f, () =>
+            {
+                Time.timeScale = 1f;
+            }));
+
+            isPaused = false;
+            //AudioController.Instance.PlaySE(AudioController.SE.exit);
+        }
     }
 
     public void Pause()
@@ -171,19 +189,24 @@ public class PauseController : MonoBehaviour
     //}
     public void LoadStageSelect()
     {
-        //AudioController.Instance.PlaySE(AudioController.SE.pushButton);
-        Resume();
-        //GameInstance.DestroyInstance();
-        SceneManager.LoadScene(SceneNameEnum.StageSelect.ToString());
+        if (canUseStageSelect)
+        {
+            //AudioController.Instance.PlaySE(AudioController.SE.pushButton);
+            //Resume();
+            SceneManager.LoadScene(SceneNameEnum.StageSelect.ToString());
+        }
     }
 
     public void LoadTitle()
     {
+        if (canUseTitle)
+        {
         //AudioController.Instance.PlaySE(AudioController.SE.pushButton);
-        Resume();
+        //Resume();
         //GameInstance.DestroyInstance();
+
         SceneManager.LoadScene(SceneNameEnum.Title.ToString());
+        }
+
     }
-
-
 }
