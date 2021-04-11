@@ -49,8 +49,10 @@ public class PauseController : MonoBehaviour
         //canvas = GameObject.Find("Pause");
 
         //pauseUI = Instantiate(pauseUIBase, canvas.transform);
-        //pauseUI.SetActive(false);
         //pauseUI.transform.SetAsLastSibling();
+
+        pauseUI.SetActive(true);
+
 
         eventSystem = FindObjectOfType<EventSystem>();
         eventSystem.firstSelectedGameObject = pauseUI.transform.Find("PauseSet/Resume").gameObject;
@@ -153,9 +155,11 @@ public class PauseController : MonoBehaviour
         {
             animator.SetInteger("PauseState", (int)PauseState.Idle);
 
+            pauseable = false;
             StartCoroutine(Utility.DelayCoroutine(1.0f, () =>
             {
                 Time.timeScale = 1f;
+                pauseable = true;
             }));
 
             isPaused = false;

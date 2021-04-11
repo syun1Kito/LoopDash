@@ -1508,8 +1508,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 363893019976283163, guid: db3569f961b9e7b4da960eb9ed9641ce,
         type: 3}
+      propertyPath: stage
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 363893019976283163, guid: db3569f961b9e7b4da960eb9ed9641ce,
+        type: 3}
       propertyPath: stageNum
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 363893019976283163, guid: db3569f961b9e7b4da960eb9ed9641ce,
+        type: 3}
+      propertyPath: nextUnlockStage
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 363893020572762481, guid: db3569f961b9e7b4da960eb9ed9641ce,
         type: 3}
