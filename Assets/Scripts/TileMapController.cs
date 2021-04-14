@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class TileMapController : MonoBehaviour
 {
+    //SaveDataController saveDataController;
+    StageController stageController;
 
     [SerializeField] PlayerMovement2D player;
 
@@ -63,9 +65,19 @@ public class TileMapController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        //teleporterController = GetComponent<TeleporterController>();
 
+        stageController = GetComponent<StageController>();
+        Init();
 
+    }
+
+    private void Start()
+    {
+        //saveDataController = GameManager.Instance.saveDataController;
+    }
+
+    void Init()
+    {
         stage.CompressBounds();
         front.CompressBounds();
         back.CompressBounds();
@@ -88,8 +100,6 @@ public class TileMapController : MonoBehaviour
         itemBackup.SetActive(false);
 
     }
-
-
 
     // Update is called once per frame
     void Update()
@@ -216,8 +226,14 @@ public class TileMapController : MonoBehaviour
             //{               
             //}
 
-            Debug.Log("goal");
+            //saveDataController.PushSaveButton();
+            //saveDataController.PushLoadButton();
+
+
+            //Debug.Log("goal");
             //player.Respawn();
+            stageController.StageClear();
+            
             SceneManager.LoadScene(SceneNameEnum.StageSelect.ToString());
 
             return true;

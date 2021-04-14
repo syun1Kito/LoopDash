@@ -53,7 +53,7 @@ public class PlayerMovement2D : MonoBehaviour
 
     void Start()
     {
-        stageController = GameManager.Instance.StageController;
+        stageController = GameManager.Instance.stageController;
         tileMapController = stageController.tileMapController;
 
         spriteRenderer = GetComponent<SpriteRenderer>();

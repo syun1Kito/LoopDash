@@ -6,14 +6,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 {
 
     
-    public StageController StageController { get; private set; }
-
+    public StageController stageController { get; private set; }
+    public SaveDataController saveDataController { get; private set; }
 
     protected override void Awake()
     {
         base.Awake();
         
-        StageController = GetComponent<StageController>();
+        stageController = GetComponent<StageController>();
+        saveDataController = GetComponent<SaveDataController>();
 
     }
 
