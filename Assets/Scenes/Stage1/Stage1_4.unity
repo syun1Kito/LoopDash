@@ -1119,7 +1119,7 @@ PrefabInstance:
     - target: {fileID: 363893019976283163, guid: db3569f961b9e7b4da960eb9ed9641ce,
         type: 3}
       propertyPath: nextUnlockStage
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 363893020572762482, guid: db3569f961b9e7b4da960eb9ed9641ce,
         type: 3}
