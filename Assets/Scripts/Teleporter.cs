@@ -14,11 +14,13 @@ public class Teleporter : MonoBehaviour
     //[SerializeField]
     //string dst = "null";
     [SerializeField]
-    SceneNameEnum loadSceneName; 
+    SceneNameEnum loadSceneName;
+
+    Animator animator;
 
 
-
-    public bool teleportable { get; set; } = true;
+    public bool isTeleportable { get; set; } = true;
+    bool isOpened = true;
 
 
     public static float START_DELAY { get; set; } = 0.15f;
@@ -29,6 +31,22 @@ public class Teleporter : MonoBehaviour
     void Start()
     {
         collider = GetComponent<CircleCollider2D>();
+
+        animator = GetComponent<Animator>();
+        animator.SetBool("isOpen", true);
+
+        if (SaveDataController.EditableSaveData.stageDatas.ContainsKey(loadSceneName))
+        {
+            isOpened = SaveDataController.EditableSaveData.stageDatas[loadSceneName].opened;//開放済みか確認
+            if (isOpened)//見た目変更
+            {
+                animator.SetBool("isOpen", true);
+            }
+            else
+            {
+                animator.SetBool("isOpen", false);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -56,12 +74,12 @@ public class Teleporter : MonoBehaviour
         
         var player = collision.gameObject.GetComponent<PlayerMovement2D>();
 
-        if (collision.gameObject.tag == "Player" && teleportable)
+        if (collision.gameObject.tag == "Player" && isTeleportable && isOpened)
         {
             if (oppositeTeleporter != null)
             {
 
-                oppositeTeleporter.GetComponent<Teleporter>().teleportable = false;
+                oppositeTeleporter.GetComponent<Teleporter>().isTeleportable = false;
 
 
                 player.playerInputable = false;
@@ -124,9 +142,9 @@ public class Teleporter : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" && !teleportable)
+        if (collision.gameObject.tag == "Player" && !isTeleportable)
         {
-            teleportable = true;
+            isTeleportable = true;
         }
     }
 

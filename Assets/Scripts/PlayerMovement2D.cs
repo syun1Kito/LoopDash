@@ -319,6 +319,7 @@ public class PlayerMovement2D : MonoBehaviour
     public void Respawn()
     {
         tileMapController.ReloadStage();
+        stageController.ResetStageData();
 
         playerInputable = false;
 

@@ -188,9 +188,12 @@ public class TileMapController : MonoBehaviour
         var realGridPos = ConvertRealGridPos(pos);
         //Debug.Log(tilemap.GetTile(realGridPos));
 
-        if (ItemTiles.Contains(tilemap.GetTile(realGridPos)))
+        if (ItemTiles.Contains(tilemap.GetTile(realGridPos)))//ギア取得
+
         {
-            tilemap.SetTile(realGridPos, null);
+            tilemap.SetTile(realGridPos, null);//ギア削除
+            stageController.GetGear();
+
             //if (realGridPos.x == initialBound.min.x)
             //{
             //    tilemap.SetTile(realGridPos + new Vector3Int(initialBound.max.x - initialBound.min.x, 0, 0), null);

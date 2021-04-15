@@ -45,19 +45,36 @@ public class SaveData : ISerializationCallbackReceiver
 public class SaveDataController : MonoBehaviour
 {
 
-    public static SaveData editableSaveData;
+    private static SaveData editableSaveData;
+    public static SaveData EditableSaveData
+    {
+        get
+        {
+            if (editableSaveData == null)
+            {
+                editableSaveData = Load();
+            }
+            return editableSaveData;
+        }
+
+        set
+        {
+            editableSaveData = value;
+        }
+    }
+        
 
 
     private void Start()
     {
-        if (editableSaveData == null)
-        {
-            editableSaveData = Load();
-            //Debug.Log(editableSaveData.stageDatas.Count);
-        }
+        //if (EditableSaveData == null)
+        //{
+        //    EditableSaveData = Load();
+        //    //Debug.Log(editableSaveData.stageDatas.Count);
+        //}
     }
 
-    public void Save(SaveData saveData)
+    public static void Save(SaveData saveData)
     {
         StreamWriter writer;
 
@@ -69,7 +86,7 @@ public class SaveDataController : MonoBehaviour
         writer.Close();
     }
 
-    public SaveData Load()
+    public static SaveData Load()
     {
         if (File.Exists(Application.dataPath + "/SaveData/savedata.json"))
         {
@@ -98,14 +115,14 @@ public class SaveDataController : MonoBehaviour
     //    //Debug.Log(saveData.stageDatas);
     //}
 
-    public void ResetSaveData()
+    public static void ResetSaveData()
     {
         Save(InitialData());
 
     }
 
 
-    public SaveData InitialData()
+    public static SaveData InitialData()
     {
 
         SaveData initialData = new SaveData
@@ -150,14 +167,14 @@ public class SaveDataController : MonoBehaviour
         //Debug--------------------------
         if (Input.GetKeyDown(KeyCode.D))
         {
-            foreach (var key in editableSaveData.stageDatas.Keys)
+            foreach (var key in EditableSaveData.stageDatas.Keys)
             {
-                Debug.Log(key.ToString() 
-                    + " : " + editableSaveData.stageDatas[key].stage.ToString() 
-                    + " : " + editableSaveData.stageDatas[key].nextUnlockStage.ToString() 
-                    + " : " + editableSaveData.stageDatas[key].opened
-                    + " : " + editableSaveData.stageDatas[key].cleared
-                    + " : " + editableSaveData.stageDatas[key].gearCollected);
+                Debug.Log(key.ToString()
+                    + " : " + EditableSaveData.stageDatas[key].stage.ToString()
+                    + " : " + EditableSaveData.stageDatas[key].nextUnlockStage.ToString()
+                    + " : " + EditableSaveData.stageDatas[key].opened
+                    + " : " + EditableSaveData.stageDatas[key].cleared
+                    + " : " + EditableSaveData.stageDatas[key].gearCollected);
             }
         }
     }
