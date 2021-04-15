@@ -156,7 +156,7 @@ public class PauseController : MonoBehaviour
             animator.SetInteger("PauseState", (int)PauseState.Idle);
 
             pauseable = false;
-            StartCoroutine(Utility.DelayCoroutine(1.0f, () =>
+            StartCoroutine(Utility.DelayCoroutineBySecond(1.0f, () =>
             {
                 Time.timeScale = 1f;
                 pauseable = true;

@@ -679,6 +679,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0f157f160e5a18d4ea3798725bceb3f1, type: 2}
   - {fileID: 11400000, guid: 80ae8a353797c0548943a139dd53656e, type: 2}
   - {fileID: 11400000, guid: 36f9b759eb5e8d04bb76296de3fe875d, type: 2}
+  - {fileID: 11400000, guid: 64c66d852c3993047abb0e45047b6b77, type: 2}
+  - {fileID: 11400000, guid: 6d7ff6a882f3cc54586f2c6e105d3414, type: 2}
   deletableTiles:
   - {fileID: 11400000, guid: a6f14e03f03e4ee4ba37bb9e68773dc8, type: 2}
   - {fileID: 11400000, guid: d56bfd1cd173cc94e83e8633c349f5ad, type: 2}

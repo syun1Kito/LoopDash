@@ -235,7 +235,7 @@ public class PlayerMovement2D : MonoBehaviour
                         SetTile(front, actionPos, TileMapController.TileType.boxLeftTo);
                     }
 
-                    StartCoroutine(Utility.DelayCoroutine(0.8f, () =>
+                    StartCoroutine(Utility.DelayCoroutineBySecond(0.8f, () =>
                     {
                         SetTile(stage, actionPos, TileMapController.TileType.putBlock);
                         DeleteTile(front, tmpCurrentPos);
@@ -258,7 +258,7 @@ public class PlayerMovement2D : MonoBehaviour
                         SetTile(front, pos, TileMapController.TileType.explode);
                     }
 
-                    StartCoroutine(Utility.DelayCoroutine(0.8f, () =>
+                    StartCoroutine(Utility.DelayCoroutineBySecond(0.8f, () =>
                     {
                         foreach (var pos in destroyPos)
                         {
@@ -272,7 +272,7 @@ public class PlayerMovement2D : MonoBehaviour
                 var fadeTime = 0.15f;
                 rigidbody2D.bodyType = RigidbodyType2D.Static;
                 StartCoroutine(Utility.FadeOut(gameObject, fadeTime));
-                StartCoroutine(Utility.DelayCoroutine(.8f, () =>
+                StartCoroutine(Utility.DelayCoroutineBySecond(.8f, () =>
                 {
                     if (currentForm == Form.box)
                     {
@@ -288,7 +288,7 @@ public class PlayerMovement2D : MonoBehaviour
 
 
                     StartCoroutine(Utility.FadeIn(gameObject, Teleporter.FADE_DELAY));
-                    StartCoroutine(Utility.DelayCoroutine(Teleporter.FADE_DELAY, () =>
+                    StartCoroutine(Utility.DelayCoroutineBySecond(Teleporter.FADE_DELAY, () =>
                     {
                         rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
                         playerInputable = true;
@@ -332,7 +332,7 @@ public class PlayerMovement2D : MonoBehaviour
         rigidbody2D.bodyType = RigidbodyType2D.Static;
 
         StartCoroutine(Utility.FadeIn(gameObject, Teleporter.FADE_DELAY));
-        StartCoroutine(Utility.DelayCoroutine(Teleporter.FADE_DELAY, () =>
+        StartCoroutine(Utility.DelayCoroutineBySecond(Teleporter.FADE_DELAY, () =>
         {
             rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
             playerInputable = true;
@@ -344,7 +344,7 @@ public class PlayerMovement2D : MonoBehaviour
         rigidbody2D.bodyType = RigidbodyType2D.Static;
 
         StartCoroutine(Utility.FadeOut(gameObject, Teleporter.FADE_DELAY));
-        StartCoroutine(Utility.DelayCoroutine(Teleporter.FADE_DELAY, () =>
+        StartCoroutine(Utility.DelayCoroutineBySecond(Teleporter.FADE_DELAY, () =>
         {
             //rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
             Respawn();
@@ -395,6 +395,7 @@ public class PlayerMovement2D : MonoBehaviour
 
 
         }
+
 
         var item = tileMapController.item;
         TouchTile(item, tileMapController.GetGridPos(hitPos));

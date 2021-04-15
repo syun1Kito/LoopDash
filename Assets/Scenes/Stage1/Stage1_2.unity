@@ -1521,6 +1521,11 @@ PrefabInstance:
       propertyPath: nextUnlockStage
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 363893020143392215, guid: db3569f961b9e7b4da960eb9ed9641ce,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 363893020572762481, guid: db3569f961b9e7b4da960eb9ed9641ce,
         type: 3}
       propertyPath: m_Enabled

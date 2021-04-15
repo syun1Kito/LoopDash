@@ -17,13 +17,18 @@ public class Utility : MonoBehaviour
 
     }
 
-    public static IEnumerator DelayCoroutine(float seconds, Action action)
+    public static IEnumerator DelayCoroutineBySecond(float seconds, Action action)
     {
         //yield return new WaitForSeconds(seconds);
         yield return new WaitForSecondsRealtime(seconds) ;
         action?.Invoke();
     }
 
+    public static IEnumerator DelayCoroutineByFrame(int frame, Action action)
+    {
+        for (var i = 0; i < frame; i++) yield return null;
+        action?.Invoke();
+    }
 
     public static IEnumerator FadeOut(GameObject obj, float time)
     {

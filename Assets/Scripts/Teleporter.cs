@@ -21,7 +21,7 @@ public class Teleporter : MonoBehaviour
 
     public bool isTeleportable { get; set; } = true;
     bool isOpened = true;
-
+    bool displayGear = false;
 
     public static float START_DELAY { get; set; } = 0.15f;
     public static float FADE_DELAY { get; set; } = 0.8f;
@@ -45,6 +45,18 @@ public class Teleporter : MonoBehaviour
             else
             {
                 animator.SetBool("isOpen", false);
+            }
+
+            //ギア取得表示
+            displayGear = SaveDataController.EditableSaveData.stageDatas[loadSceneName].gearCollected;//ギア取得済みか確認
+            TileMapController tileMapController = GameManager.Instance.stageController.tileMapController;
+            if (displayGear)
+            {
+                tileMapController.SetTile(tileMapController.back, tileMapController.GetGridPos(transform.position) + new Vector3Int(-1, 0, 0), TileMapController.TileType.animatedGear);
+            }
+            else
+            {
+                tileMapController.SetTile(tileMapController.back, tileMapController.GetGridPos(transform.position) + new Vector3Int(-1, 0, 0), TileMapController.TileType.transparencyStopGear);
             }
         }
     }
@@ -84,16 +96,16 @@ public class Teleporter : MonoBehaviour
 
                 player.playerInputable = false;
 
-                StartCoroutine(Utility.DelayCoroutine(START_DELAY, () =>
+                StartCoroutine(Utility.DelayCoroutineBySecond(START_DELAY, () =>
                 {
                     player.rigidbody2D.bodyType = RigidbodyType2D.Static;
                     StartCoroutine(Utility.FadeOut(collision.gameObject, FADE_DELAY));
-                    StartCoroutine(Utility.DelayCoroutine(FADE_DELAY, () =>
+                    StartCoroutine(Utility.DelayCoroutineBySecond(FADE_DELAY, () =>
                     {
                         collision.gameObject.transform.position = oppositeTeleporter.transform.position;
 
                         StartCoroutine(Utility.FadeIn(collision.gameObject, FADE_DELAY));
-                        StartCoroutine(Utility.DelayCoroutine(FADE_DELAY, () =>
+                        StartCoroutine(Utility.DelayCoroutineBySecond(FADE_DELAY, () =>
                         {
                             player.rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
                             player.playerInputable = true;
@@ -119,11 +131,11 @@ public class Teleporter : MonoBehaviour
                 {
                     
 
-                    StartCoroutine(Utility.DelayCoroutine(START_DELAY, () =>
+                    StartCoroutine(Utility.DelayCoroutineBySecond(START_DELAY, () =>
                     {
                         player.rigidbody2D.bodyType = RigidbodyType2D.Static;
                         StartCoroutine(Utility.FadeOut(collision.gameObject, FADE_DELAY));
-                        StartCoroutine(Utility.DelayCoroutine(FADE_DELAY, () =>
+                        StartCoroutine(Utility.DelayCoroutineBySecond(FADE_DELAY, () =>
                         {
                             if (loadSceneName == SceneNameEnum.Exit) { Quit(); }
                             SceneManager.LoadScene(loadSceneName.ToString());

@@ -22,6 +22,9 @@ public class TileMapController : MonoBehaviour
         boxRightTo,
         boxLeftFrom,
         boxLeftTo,
+        animatedGear,
+        transparencyStopGear,
+
     }
 
 
@@ -236,7 +239,7 @@ public class TileMapController : MonoBehaviour
             //Debug.Log("goal");
             //player.Respawn();
             stageController.StageClear();
-            
+
             SceneManager.LoadScene(SceneNameEnum.StageSelect.ToString());
 
             return true;
@@ -292,18 +295,51 @@ public class TileMapController : MonoBehaviour
 
     public void ReloadStage()
     {
-        
-        Destroy(GameObject.Find("Stage"));
-        GameObject newStage = Utility.Clone(stageBackup);
-        newStage.name = "Stage";
-        newStage.SetActive(true);
-        stage = newStage.GetComponent<Tilemap>();
+        //Debug.Log("reload");
+        if (GameObject.Find("tmpStage") == null)
+        {            
+            GameObject newStage = Utility.Clone(stageBackup);
+            newStage.name = "tmpStage";
+            newStage.SetActive(true);
+            stage = newStage.GetComponent<Tilemap>();
 
-        Destroy(GameObject.Find("Item"));
-        GameObject newItem = Utility.Clone(itemBackup);
-        newItem.name = "Item";
-        newItem.SetActive(true);
-        item = newItem.GetComponent<Tilemap>();
+            Destroy(GameObject.Find("Stage"));
+
+            StartCoroutine(Utility.DelayCoroutineByFrame(1, () =>
+          {
+              newStage.name = "Stage";
+          }));
+        }
+
+
+        if (GameObject.Find("tmpItem") == null)
+        {
+            GameObject newItem = Utility.Clone(itemBackup);
+            newItem.name = "tmpItem";
+            newItem.SetActive(true);
+            item = newItem.GetComponent<Tilemap>();
+
+            Destroy(GameObject.Find("Item"));
+
+            StartCoroutine(Utility.DelayCoroutineByFrame(1, () =>
+            {
+                newItem.name = "Item";
+            }));
+        }
+
+
+
+        //Destroy(GameObject.Find("Item"));
+        //StartCoroutine(Utility.DelayCoroutineByFrame(1, () =>
+        //{
+        //    if (GameObject.Find("Item") == null)
+        //    {
+        //        GameObject newItem = Utility.Clone(itemBackup);
+        //        newItem.name = "Item";
+        //        newItem.SetActive(true);
+        //        item = newItem.GetComponent<Tilemap>();
+        //    }
+        //}));
 
     }
 }
