@@ -16,11 +16,14 @@ public class Teleporter : MonoBehaviour
     [SerializeField]
     SceneNameEnum loadSceneName;
 
+    [SerializeField]
+    SceneNameEnum openSceneName;//ステセレ画面内移動用
+
     Animator animator;
 
 
     public bool isTeleportable { get; set; } = true;
-    bool isOpened = true;
+    bool isOpen = true;
     bool displayGear = false;
 
     public static float START_DELAY { get; set; } = 0.15f;
@@ -37,8 +40,8 @@ public class Teleporter : MonoBehaviour
 
         if (SaveDataController.EditableSaveData.stageDatas.ContainsKey(loadSceneName))
         {
-            isOpened = SaveDataController.EditableSaveData.stageDatas[loadSceneName].opened;//開放済みか確認
-            if (isOpened)//見た目変更
+            isOpen = SaveDataController.EditableSaveData.stageDatas[loadSceneName].opened;//開放済みか確認
+            if (isOpen)//見た目変更
             {
                 animator.SetBool("isOpen", true);
             }
@@ -57,6 +60,21 @@ public class Teleporter : MonoBehaviour
             else
             {
                 tileMapController.SetTile(tileMapController.back, tileMapController.GetGridPos(transform.position) + new Vector3Int(-1, 0, 0), TileMapController.TileType.transparencyStopGear);
+            }
+        }
+        else
+        {
+            if (oppositeTeleporter != null　&& SaveDataController.EditableSaveData.stageDatas.ContainsKey(openSceneName))
+            {
+                isOpen = SaveDataController.EditableSaveData.stageDatas[openSceneName].opened;//開放済みか確認
+                if (isOpen)//見た目変更
+                {
+                    animator.SetBool("isOpen", true);
+                }
+                else
+                {
+                    animator.SetBool("isOpen", false);
+                }
             }
         }
     }
@@ -86,7 +104,7 @@ public class Teleporter : MonoBehaviour
         
         var player = collision.gameObject.GetComponent<PlayerMovement2D>();
 
-        if (collision.gameObject.tag == "Player" && isTeleportable && isOpened)
+        if (collision.gameObject.tag == "Player" && isTeleportable && isOpen)
         {
             if (oppositeTeleporter != null)
             {

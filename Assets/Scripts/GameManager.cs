@@ -8,6 +8,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     
     public StageController stageController { get; private set; }
     public SaveDataController saveDataController { get; private set; }
+    public StatusUIController statusUIController { get; private set; }
+
 
     protected override void Awake()
     {
@@ -15,6 +17,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         
         stageController = GetComponent<StageController>();
         saveDataController = GetComponent<SaveDataController>();
+        statusUIController = GetComponent<StatusUIController>();
 
     }
 

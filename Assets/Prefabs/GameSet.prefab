@@ -617,8 +617,9 @@ GameObject:
   m_Component:
   - component: {fileID: 363893019976283162}
   - component: {fileID: 363893019976283161}
-  - component: {fileID: 363893019976283160}
   - component: {fileID: 363893019976283163}
+  - component: {fileID: 363893019976283160}
+  - component: {fileID: 3969329794375162853}
   - component: {fileID: 5392876203967678757}
   - component: {fileID: 363893019976283164}
   - component: {fileID: 6990138645671685149}
@@ -656,6 +657,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ba5aa79b41ce74abd4043384331526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &363893019976283163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363893019976283175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd650b19b3a02a48aa35205b6e7063e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stage: 7
+  nextUnlockStage: 7
+  playerMovement2D: {fileID: 363893020143392214}
+  startPos: {fileID: 363893021581246589}
+  maxLife: 0
 --- !u!114 &363893019976283160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -698,7 +716,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a75a789cf95805141a4cc832c9d92297, type: 2}
   ItemTiles:
   - {fileID: 11400000, guid: 64c66d852c3993047abb0e45047b6b77, type: 2}
---- !u!114 &363893019976283163
+--- !u!114 &3969329794375162853
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -707,13 +725,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 363893019976283175}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd650b19b3a02a48aa35205b6e7063e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b0af4effd95aa044a5e243aa5e59790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stage: 7
-  nextUnlockStage: 7
-  startPos: {fileID: 363893021581246589}
-  life: 0
+  stageText: {fileID: 49090288972087096}
+  statusText: {fileID: 1858310736390622215}
 --- !u!114 &5392876203967678757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2200,7 +2216,7 @@ RectTransform:
   m_LocalScale: {x: 0.24948, y: 0.24948, z: 1.00008}
   m_Children: []
   m_Father: {fileID: 462405336548866144}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2293,7 +2309,7 @@ RectTransform:
   m_LocalScale: {x: 0.24948, y: 0.24948, z: 1.00008}
   m_Children: []
   m_Father: {fileID: 462405336548866144}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3130,7 +3146,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &462405336548866144
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3142,9 +3158,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2381760528942925037}
   - {fileID: 3631572886241675278}
   - {fileID: 6555137083127693482}
+  - {fileID: 2381760528942925037}
   - {fileID: 6149738168055510416}
   m_Father: {fileID: 4887165104496215574}
   m_RootOrder: 1
@@ -3185,7 +3201,7 @@ RectTransform:
   m_LocalScale: {x: 0.24948, y: 0.24948, z: 1.00008}
   m_Children: []
   m_Father: {fileID: 462405336548866144}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

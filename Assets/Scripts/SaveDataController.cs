@@ -7,7 +7,7 @@ using System.Linq;
 [System.Serializable]
 public class SaveData : ISerializationCallbackReceiver
 {
-    
+
     public Dictionary<SceneNameEnum, StageData> stageDatas;
 
     [SerializeField]
@@ -62,7 +62,7 @@ public class SaveDataController : MonoBehaviour
             editableSaveData = value;
         }
     }
-        
+
 
 
     private void Start()
@@ -98,13 +98,13 @@ public class SaveDataController : MonoBehaviour
 
             return JsonUtility.FromJson<SaveData>(datastr);
         }
-        
+
         return InitialData();
     }
 
     //public void PushSaveButton()
     //{
-        
+
 
     //    Save(InitialData());
     //}
@@ -132,14 +132,15 @@ public class SaveDataController : MonoBehaviour
 
         for (SceneNameEnum stage = SceneNameEnum.Stage1_1; stage < SceneNameEnum.Stage1_1 + StageController.maxStageNum; stage++)
         {
-            
+
             StageData stageData = new StageData()
             {
-             stage = stage,
-             nextUnlockStage = stage+1, //要修正
-             opened = false,
-             cleared = false,
-             gearCollected = false,
+                stage = stage,
+                nextUnlockStage = stage + 1, //要修正
+                opened = false,
+                cleared = false,
+                gearCollected = false,
+                //life = 0,
             };
 
 
@@ -150,7 +151,7 @@ public class SaveDataController : MonoBehaviour
 
 
 
-            initialData.stageDatas.Add(stage,stageData);
+            initialData.stageDatas.Add(stage, stageData);
         }
 
 
@@ -175,6 +176,7 @@ public class SaveDataController : MonoBehaviour
                     + " : " + EditableSaveData.stageDatas[key].opened
                     + " : " + EditableSaveData.stageDatas[key].cleared
                     + " : " + EditableSaveData.stageDatas[key].gearCollected);
+                    //+ " : " + EditableSaveData.stageDatas[key].life);
             }
         }
     }

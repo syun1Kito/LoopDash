@@ -32,11 +32,15 @@ public class PlayerMovement2D : MonoBehaviour
 
     Form currentForm;
 
+    public int life { get; set; }
+
     [SerializeField]
     SceneNameEnum[] tileActionDisableScene;
 
     TileMapController tileMapController;
     StageController stageController;
+    StatusUIController statusUIController;
+
     SpriteRenderer spriteRenderer;
     Animator animator;
 
@@ -55,6 +59,7 @@ public class PlayerMovement2D : MonoBehaviour
     {
         stageController = GameManager.Instance.stageController;
         tileMapController = stageController.tileMapController;
+        statusUIController = GameManager.Instance.statusUIController;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -73,10 +78,11 @@ public class PlayerMovement2D : MonoBehaviour
         GetGridPos(transform.position);
         //Debug.Log(currentPos);
 
-        //if (Input.GetKeyDown(KeyCode.X))
-        //{
-        //    StartCoroutine(FadeOut(gameObject,3));
-        //}
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Debug.Log(life);
+        }
+
     }
 
     void FixedUpdate()
@@ -267,6 +273,12 @@ public class PlayerMovement2D : MonoBehaviour
                     }));
                 }
 
+                if (life > 0)
+                {
+                    life--;//ライフを減らす
+                    statusUIController.SetLife(life);
+                }
+
                 playerInputable = false;
 
                 var fadeTime = 0.15f;
@@ -327,6 +339,8 @@ public class PlayerMovement2D : MonoBehaviour
         if (!controller.IsFacingRight()) { controller.Flip(); }
         transform.position = stageController.startPos.position;
 
+        ResetLife();//ライフをリセット
+        statusUIController.SetLife(life);
 
 
         rigidbody2D.bodyType = RigidbodyType2D.Static;
@@ -341,6 +355,7 @@ public class PlayerMovement2D : MonoBehaviour
 
     public void Damaged()
     {
+        playerInputable = false;
         rigidbody2D.bodyType = RigidbodyType2D.Static;
 
         StartCoroutine(Utility.FadeOut(gameObject, Teleporter.FADE_DELAY));
@@ -353,15 +368,20 @@ public class PlayerMovement2D : MonoBehaviour
 
     }
 
-    public bool IsTileActionableScene() {
+    public bool IsTileActionableScene()
+    {
 
-        if (tileActionDisableScene.Contains((SceneNameEnum)Enum.ToObject(typeof(SceneNameEnum), SceneManager.GetActiveScene().buildIndex))) 
+        if (tileActionDisableScene.Contains((SceneNameEnum)Enum.ToObject(typeof(SceneNameEnum), SceneManager.GetActiveScene().buildIndex)))
         {
             return false;
         }
-            return true;
+        return true;
     }
 
+    public void ResetLife()
+    {
+        life = stageController.maxLife;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

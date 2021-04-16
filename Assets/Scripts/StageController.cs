@@ -12,6 +12,7 @@ public class StageData
     public bool opened;
     public bool cleared;
     public bool gearCollected;
+    //public int life;
 
 
 }
@@ -22,7 +23,7 @@ public class StageController : MonoBehaviour
     //[SerializeField]
     //bool isStageSelect;
 
-    
+
     public static int maxStageNum;
 
     [SerializeField]
@@ -31,22 +32,27 @@ public class StageController : MonoBehaviour
     [SerializeField]
     SceneNameEnum nextUnlockStage;
 
-    StageData stageData;
+    StageData stageData; 
     StageData defaultStageData;
 
     public TileMapController tileMapController { get; private set; }
+    StatusUIController statusUIController;//{ get; private set; }
+    [SerializeField]
+    PlayerMovement2D playerMovement2D;
+
     //public SaveDataController saveDataController;
 
     public Transform startPos;
 
     [SerializeField, Range(0, 10)]
-    int life;
+    public int maxLife;
 
 
     // Start is called before the first frame update
     void Awake()
     {
         tileMapController = GetComponent<TileMapController>();
+        statusUIController = GetComponent<StatusUIController>();
         //saveDataController = GetComponent<SaveDataController>();
         Init();
     }
@@ -78,19 +84,25 @@ public class StageController : MonoBehaviour
 
         stage = (SceneNameEnum)Enum.ToObject(typeof(SceneNameEnum), SceneManager.GetActiveScene().buildIndex);
 
-        
+
 
 
     }
 
     private void Start()
     {
-       
+
         if (SaveDataController.EditableSaveData != null && SaveDataController.EditableSaveData.stageDatas.ContainsKey(stage))
         {
 
             stageData = Utility.DeepClone(SaveDataController.EditableSaveData.stageDatas[stage]);
-            defaultStageData = Utility.DeepClone(SaveDataController.EditableSaveData.stageDatas[stage]);
+            playerMovement2D.ResetLife();//ライフを設定
+            statusUIController.life = maxLife;
+
+            defaultStageData = Utility.DeepClone(stageData);//バックアップ
+
+            statusUIController.stageData = stageData;
+            statusUIController.Init();
         }
     }
 
@@ -107,7 +119,7 @@ public class StageController : MonoBehaviour
             saveData.stageDatas[stageData.nextUnlockStage].opened = true;//次ステージ開放
 
         }
-        
+
 
         SaveDataController.Save(saveData);//セーブデータに反映
     }
