@@ -2750,7 +2750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BGMClips:
   - audioClip: {fileID: 8300000, guid: d2184358f058f6b40b0e9f61eb6d4266, type: 3}
-    volume: 0.7
+    volume: 0.5
   - audioClip: {fileID: 0}
     volume: 1
   - audioClip: {fileID: 0}
@@ -2891,6 +2891,7 @@ GameObject:
   - component: {fileID: 4893228182653345912}
   - component: {fileID: 5313844297920215457}
   - component: {fileID: 3154236588879025175}
+  - component: {fileID: 3264725322415121604}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3000,6 +3001,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 363893020143392223}
   smoothness: 4
+--- !u!95 &3264725322415121604
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964965648113215140}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ab2c0545250ec86408cf2d33fb03afa8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2184887640579274032
 GameObject:
   m_ObjectHideFlags: 0

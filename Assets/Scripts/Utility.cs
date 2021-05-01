@@ -5,21 +5,9 @@ using UnityEngine;
 
 public class Utility : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public static IEnumerator DelayCoroutineBySecond(float seconds, Action action)
     {
-        //yield return new WaitForSeconds(seconds);
         yield return new WaitForSecondsRealtime(seconds) ;
         action?.Invoke();
     }

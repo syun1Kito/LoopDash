@@ -78,9 +78,9 @@ public class PlayerMovement2D : MonoBehaviour
         GetGridPos(transform.position);
         //Debug.Log(currentPos);
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log(life);
+            //CameraController.NoiseFade();
         }
 
     }
@@ -98,6 +98,7 @@ public class PlayerMovement2D : MonoBehaviour
 
     void Init()
     {
+        CameraController.NoiseFadeIn();
         Respawn();
 
 
@@ -113,7 +114,11 @@ public class PlayerMovement2D : MonoBehaviour
 
             TileAction();
 
-            if (Input.GetButtonDown("Respawn")) { Respawn(); }
+            if (Input.GetButtonDown("Respawn"))
+            {
+                CameraController.NoiseFadeOut();
+                Respawn();
+            }
 
         }
     }
@@ -220,6 +225,7 @@ public class PlayerMovement2D : MonoBehaviour
             {
 
                 Vector3Int tmpCurrentPos = currentPos;
+                float actionDuringTime = 0.8f;
 
                 if (currentForm == Form.box)
                 {
@@ -241,7 +247,7 @@ public class PlayerMovement2D : MonoBehaviour
                         SetTile(front, actionPos, TileMapController.TileType.boxLeftTo);
                     }
 
-                    StartCoroutine(Utility.DelayCoroutineBySecond(0.8f, () =>
+                    StartCoroutine(Utility.DelayCoroutineBySecond(actionDuringTime, () =>
                     {
                         SetTile(stage, actionPos, TileMapController.TileType.putBlock);
                         DeleteTile(front, tmpCurrentPos);
@@ -264,7 +270,7 @@ public class PlayerMovement2D : MonoBehaviour
                         SetTile(front, pos, TileMapController.TileType.explode);
                     }
 
-                    StartCoroutine(Utility.DelayCoroutineBySecond(0.8f, () =>
+                    StartCoroutine(Utility.DelayCoroutineBySecond(actionDuringTime, () =>
                     {
                         foreach (var pos in destroyPos)
                         {
@@ -273,38 +279,51 @@ public class PlayerMovement2D : MonoBehaviour
                     }));
                 }
 
-                if (life > 0)
-                {
-                    life--;//ライフを減らす
-                    statusUIController.SetLife(life);
-                }
+                
 
                 playerInputable = false;
 
                 var fadeTime = 0.15f;
                 rigidbody2D.bodyType = RigidbodyType2D.Static;
                 StartCoroutine(Utility.FadeOut(gameObject, fadeTime));
-                StartCoroutine(Utility.DelayCoroutineBySecond(.8f, () =>
+                StartCoroutine(Utility.DelayCoroutineBySecond(actionDuringTime, () =>
                 {
-                    if (currentForm == Form.box)
+
+                    if (life > 0)
                     {
-                        ChangeForm(Form.bomb);
+                        life--;//ライフを減らす
+                        statusUIController.SetLife(life);
+
+                        if (currentForm == Form.box)
+                        {
+                            ChangeForm(Form.bomb);
+                        }
+                        else if (currentForm == Form.bomb)
+                        {
+                            ChangeForm(Form.box);
+                        }
+
+                        if (!controller.IsFacingRight()) { controller.Flip(); }
+                        transform.position = stageController.startPos.position;
+
+
+                        StartCoroutine(Utility.FadeIn(gameObject, Teleporter.FADE_DELAY));
+                        StartCoroutine(Utility.DelayCoroutineBySecond(Teleporter.FADE_DELAY, () =>
+                        {
+                            rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+                            playerInputable = true;
+                        }));
                     }
-                    else if (currentForm == Form.bomb)
+                    else //GAMEOVER
                     {
-                        ChangeForm(Form.box);
+                        StartCoroutine(Utility.DelayCoroutineBySecond(0.3f, () =>
+                        {
+                            CameraController.NoiseFadeOut();
+                            Respawn();
+                        }));
                     }
 
-                    if (!controller.IsFacingRight()) { controller.Flip(); }
-                    transform.position = stageController.startPos.position;
-
-
-                    StartCoroutine(Utility.FadeIn(gameObject, Teleporter.FADE_DELAY));
-                    StartCoroutine(Utility.DelayCoroutineBySecond(Teleporter.FADE_DELAY, () =>
-                    {
-                        rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-                        playerInputable = true;
-                    }));
+                    
                 }));
 
                 return true;
@@ -330,27 +349,33 @@ public class PlayerMovement2D : MonoBehaviour
 
     public void Respawn()
     {
-        tileMapController.ReloadStage();
-        stageController.ResetStageData();
-
-        playerInputable = false;
-
-        if (currentForm == Form.bomb) { ChangeForm(Form.box); }
-        if (!controller.IsFacingRight()) { controller.Flip(); }
-        transform.position = stageController.startPos.position;
-
-        ResetLife();//ライフをリセット
-        statusUIController.SetLife(life);
-
-
         rigidbody2D.bodyType = RigidbodyType2D.Static;
 
-        StartCoroutine(Utility.FadeIn(gameObject, Teleporter.FADE_DELAY));
-        StartCoroutine(Utility.DelayCoroutineBySecond(Teleporter.FADE_DELAY, () =>
+        StartCoroutine(Utility.DelayCoroutineBySecond(0.1f, () =>
         {
-            rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-            playerInputable = true;
+            tileMapController.ReloadStage();
+            stageController.ResetStageData();
+
+            playerInputable = false;
+
+            if (currentForm == Form.bomb) { ChangeForm(Form.box); }
+            if (!controller.IsFacingRight()) { controller.Flip(); }
+            transform.position = stageController.startPos.position;
+
+            ResetLife();//ライフをリセット
+            statusUIController.SetLife(life);
+           
+
+            StartCoroutine(Utility.FadeIn(gameObject, Teleporter.FADE_DELAY));
+            StartCoroutine(Utility.DelayCoroutineBySecond(Teleporter.FADE_DELAY, () =>
+            {
+                rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+                playerInputable = true;
+            }));
         }));
+
+
+
     }
 
     public void Damaged()
@@ -362,6 +387,7 @@ public class PlayerMovement2D : MonoBehaviour
         StartCoroutine(Utility.DelayCoroutineBySecond(Teleporter.FADE_DELAY, () =>
         {
             //rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+            CameraController.NoiseFadeOut();
             Respawn();
         }));
 
